@@ -1,0 +1,221 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  l_Exercices</title>
+        <meta name="description" content="Série d’exercices pratiques
+pour mettre en application les notions d’objets, de propriétés, de
+mutabilité, de références, de prototypes, de classes et des principes de
+la programmation orientée objet en JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="k_encapsulation.html">k_encapsulation</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-sur-les-objets-et-la-poo-en-javascript"
+        id="toc-exercices-sur-les-objets-et-la-poo-en-javascript">Exercices
+        sur les objets et la POO en JavaScript</a>
+        <ul>
+        <li><a href="#exercice-1-création-dobjet"
+        id="toc-exercice-1-création-dobjet">Exercice 1 — Création
+        d’objet</a></li>
+        <li><a href="#exercice-2-manipulation-de-propriétés"
+        id="toc-exercice-2-manipulation-de-propriétés">Exercice 2 —
+        Manipulation de propriétés</a></li>
+        <li><a href="#exercice-3-mutabilité"
+        id="toc-exercice-3-mutabilité">Exercice 3 — Mutabilité</a></li>
+        <li><a href="#exercice-4-références"
+        id="toc-exercice-4-références">Exercice 4 — Références</a></li>
+        <li><a href="#exercice-5-prototype"
+        id="toc-exercice-5-prototype">Exercice 5 — Prototype</a></li>
+        <li><a href="#exercice-6-delete"
+        id="toc-exercice-6-delete">Exercice 6 — Delete</a></li>
+        <li><a href="#exercice-7-énumération"
+        id="toc-exercice-7-énumération">Exercice 7 —
+        Énumération</a></li>
+        <li><a href="#exercice-8-classes"
+        id="toc-exercice-8-classes">Exercice 8 — Classes</a></li>
+        <li><a href="#exercice-9-héritage"
+        id="toc-exercice-9-héritage">Exercice 9 — Héritage</a></li>
+        <li><a href="#exercice-10-polymorphisme"
+        id="toc-exercice-10-polymorphisme">Exercice 10 —
+        Polymorphisme</a></li>
+        <li><a href="#exercice-11-encapsulation"
+        id="toc-exercice-11-encapsulation">Exercice 11 —
+        Encapsulation</a></li>
+        <li><a href="#exercice-12-projet-de-synthèse"
+        id="toc-exercice-12-projet-de-synthèse">Exercice 12 — Projet de
+        synthèse</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS l_Exercices</h1>
+      
+      
+      
+      <h1
+      id="exercices-sur-les-objets-et-la-poo-en-javascript">Exercices
+      sur les objets et la POO en JavaScript</h1>
+      <p>Ces exercices permettent de consolider les connaissances
+      acquises dans les sections précédentes, depuis la création
+      d’objets jusqu’aux concepts avancés de classes, d’héritage, de
+      polymorphisme et d’encapsulation.</p>
+      <hr />
+      <h2 id="exercice-1-création-dobjet">Exercice 1 — Création
+      d’objet</h2>
+      <p>Crée un objet représentant un livre avec les propriétés
+      suivantes : <code>title</code>, <code>author</code>,
+      <code>year</code>. Ajoute ensuite une méthode qui retourne une
+      chaîne de caractères du type :<br />
+      « <em>Titre</em> a été écrit par <em>Auteur</em> en <em>Année</em>
+      ».</p>
+      <hr />
+      <h2 id="exercice-2-manipulation-de-propriétés">Exercice 2 —
+      Manipulation de propriétés</h2>
+      <p>À partir de l’objet précédent, ajoute une nouvelle propriété
+      <code>publisher</code>. Modifie ensuite la valeur de
+      <code>year</code> et supprime la propriété <code>publisher</code>.
+      Vérifie les changements avec des affichages dans la console.</p>
+      <hr />
+      <h2 id="exercice-3-mutabilité">Exercice 3 — Mutabilité</h2>
+      <p>Explique, à l’aide d’un petit programme, pourquoi deux
+      variables peuvent sembler « partager » le même objet. Montre
+      qu’une modification via une variable se répercute sur l’autre.</p>
+      <hr />
+      <h2 id="exercice-4-références">Exercice 4 — Références</h2>
+      <p>Crée un objet <code>car</code> puis affecte-le à une seconde
+      variable. Modifie une propriété via la première variable et
+      vérifie le résultat sur la seconde. Ajoute ensuite un exemple de
+      copie indépendante avec <code>Object.assign</code> ou l’opérateur
+      de déstructuration.</p>
+      <hr />
+      <h2 id="exercice-5-prototype">Exercice 5 — Prototype</h2>
+      <p>Crée un objet <code>person</code> avec une méthode
+      <code>introduce</code>. Crée ensuite un objet <code>student</code>
+      avec <code>Object.create(person)</code> et donne-lui une propriété
+      spécifique. Montre comment <code>student</code> peut utiliser la
+      méthode de son prototype.</p>
+      <hr />
+      <h2 id="exercice-6-delete">Exercice 6 — Delete</h2>
+      <p>Crée un objet <code>user</code> avec une propriété
+      <code>password</code>. Supprime cette propriété avec
+      <code>delete</code> et montre que la valeur n’est plus
+      accessible.</p>
+      <hr />
+      <h2 id="exercice-7-énumération">Exercice 7 — Énumération</h2>
+      <p>Crée un objet <code>inventory</code> représentant des articles
+      et leurs quantités. Utilise une boucle <code>for...in</code> pour
+      afficher toutes les propriétés, puis refais la même chose avec
+      <code>Object.keys</code>.</p>
+      <hr />
+      <h2 id="exercice-8-classes">Exercice 8 — Classes</h2>
+      <p>Définis une classe <code>Rectangle</code> avec un constructeur
+      prenant largeur et hauteur, et une méthode <code>area</code> qui
+      calcule la surface. Crée plusieurs instances et affiche leurs
+      résultats.</p>
+      <hr />
+      <h2 id="exercice-9-héritage">Exercice 9 — Héritage</h2>
+      <p>Définis une classe <code>Animal</code> avec une méthode
+      <code>speak</code>. Crée ensuite deux sous-classes,
+      <code>Dog</code> et <code>Cat</code>, qui redéfinissent la
+      méthode. Instancie plusieurs objets et montre leur comportement
+      polymorphe.</p>
+      <hr />
+      <h2 id="exercice-10-polymorphisme">Exercice 10 —
+      Polymorphisme</h2>
+      <p>Crée une liste d’objets de type <code>Animal</code>,
+      <code>Dog</code> et <code>Cat</code>. Parcours cette liste et
+      appelle la méthode <code>speak</code> sur chacun. Observe le
+      résultat et explique le principe de polymorphisme.</p>
+      <hr />
+      <h2 id="exercice-11-encapsulation">Exercice 11 —
+      Encapsulation</h2>
+      <p>Crée une classe <code>BankAccount</code> avec une propriété
+      privée <code>#balance</code>, des méthodes <code>deposit</code>,
+      <code>withdraw</code> et <code>getBalance</code>. Teste plusieurs
+      scénarios en respectant la logique métier et vérifie que l’accès
+      direct à <code>#balance</code> est impossible depuis
+      l’extérieur.</p>
+      <hr />
+      <h2 id="exercice-12-projet-de-synthèse">Exercice 12 — Projet de
+      synthèse</h2>
+      <p>Conçois un petit système de gestion de bibliothèque : - une
+      classe <code>Book</code> avec un titre et un auteur, - une classe
+      <code>Library</code> qui contient une collection de livres et des
+      méthodes pour ajouter, supprimer et lister les ouvrages, - un
+      exemple d’utilisation complet avec plusieurs instances.</p>
+      <hr />
+      <p>⬅️ <a href="./k_encapsulation.html">Chapitre précédent :
+      L’encapsulation</a></p>
+      <p>➡️ <a href="../10_date-time/a_date-time.html">Chapitre suivant
+      : Date and Time</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

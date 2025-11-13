@@ -1,0 +1,124 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  IV_References</title>
+      
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="assets/style.css" />
+  
+    
+    <script src="assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="ii_copyright.html">II_Copyright</a>
+            <a class="nav-home" href="index.html">Accueil</a>
+            <a class="nav-next" href="i_dedication.html">I_Dedication</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#references"
+        id="toc-references">References</a></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS IV_References</h1>
+      
+      
+      
+      <h1 id="references">References</h1>
+      <p>Ballard, P. (2018). JavaScript in 24 Hours, Sams Teach
+      Yourself. Sams Publishing.</p>
+      <p>Crockford, D. (2008). JavaScript: The Good Parts. O’Reilly
+      Media.</p>
+      <p>Duckett, J. (2011). HTML &amp; CSS: Design and Build Websites.
+      Wiley.</p>
+      <p>Duckett, J. (2014). JavaScript and JQuery: Interactive
+      Front-End Web Development. Wiley.</p>
+      <p>Flanagan, D. (2011). JavaScript: The Definitive Guide. O’Reilly
+      Media.</p>
+      <p>Freeman, E., &amp; Robson, E. (2014). Head First JavaScript
+      Programming: A Brain-Friendly Guide. O’Reilly Media.</p>
+      <p>Frisbie, M. (2019). Professional JavaScript for Web Developers.
+      Wrox.</p>
+      <p>Haverbeke, M. (2019). Eloquent JavaScript: A Modern
+      Introduction to Programming. No Starch Press.</p>
+      <p>Herman, D. (2012). Effective JavaScript: 68 Specific Ways to
+      Harness the Power of JavaScript. Addison-Wesley Professional.</p>
+      <p>McPeak, J., &amp; Wilton, P. (2015). Beginning JavaScript.
+      Wiley.</p>
+      <p>Morgan, N. (2014). JavaScript for Kids: A Playful Introduction
+      to Programming. No Starch Press.</p>
+      <p>Murphy C, Clark R, Studholme O, et al. (2014). Beginning HTML5
+      and CSS3: The Web Evolved. Apress.</p>
+      <p>Nixon, R. (2021). Learning PHP, MySQL &amp; JavaScript: With
+      jQuery, CSS &amp; HTML5. O’Reilly Media.</p>
+      <p>Powell, T., &amp; Schneider, F. (2012). JavaScript: The
+      Complete Reference. McGraw-Hill Education.</p>
+      <p>Resig, J. (2007). Pro JavaScript Techniques. Apress.</p>
+      <p>Resig, J., &amp; Bibeault, B. (2016). Secrets of the JavaScript
+      Ninja. Manning Publications.</p>
+      <p>Robbins, J. N. (2014). Learning Web Design: A Beginner’s Guide
+      to HTML, CSS, JavaScript, and Web Graphics. O’Reilly Media.</p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

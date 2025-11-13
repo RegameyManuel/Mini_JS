@@ -1,0 +1,233 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  d_Exercices</title>
+        <meta name="description" content="Exercices progressifs pour
+pratiquer la création, la manipulation et l’utilisation des méthodes des
+tableaux en JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="c_memo.html">c_memo</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-tableaux"
+        id="toc-exercices-tableaux">Exercices – Tableaux</a>
+        <ul>
+        <li><a href="#exercice-1-création-simple"
+        id="toc-exercice-1-création-simple">Exercice 1 – Création
+        simple</a></li>
+        <li><a href="#exercice-2-ajout-et-suppression"
+        id="toc-exercice-2-ajout-et-suppression">Exercice 2 – Ajout et
+        suppression</a></li>
+        <li><a href="#exercice-3-fusion-et-conversion"
+        id="toc-exercice-3-fusion-et-conversion">Exercice 3 – Fusion et
+        conversion</a></li>
+        <li><a href="#exercice-4-parcours-et-transformation"
+        id="toc-exercice-4-parcours-et-transformation">Exercice 4 –
+        Parcours et transformation</a></li>
+        <li><a href="#exercice-5-filtrage-et-recherche"
+        id="toc-exercice-5-filtrage-et-recherche">Exercice 5 – Filtrage
+        et recherche</a></li>
+        <li><a href="#exercice-6-réduction"
+        id="toc-exercice-6-réduction">Exercice 6 – Réduction</a></li>
+        <li><a href="#exercice-7-tri-et-ordre"
+        id="toc-exercice-7-tri-et-ordre">Exercice 7 – Tri et
+        ordre</a></li>
+        <li><a href="#exercice-8-méthodes-avancées"
+        id="toc-exercice-8-méthodes-avancées">Exercice 8 – Méthodes
+        avancées</a></li>
+        <li><a href="#exercice-9-cas-pratique"
+        id="toc-exercice-9-cas-pratique">Exercice 9 – Cas
+        pratique</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS d_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices-tableaux">Exercices – Tableaux</h1>
+      <p>Ces exercices couvrent la création de tableaux, leur
+      manipulation avec les méthodes principales, et la compréhension
+      des différences entre méthodes mutables et immuables.</p>
+      <h2 id="exercice-1-création-simple">Exercice 1 – Création
+      simple</h2>
+      <p>Crée un tableau <code>fruits</code> contenant
+      <code>"pomme"</code>, <code>"banane"</code> et
+      <code>"orange"</code>.<br />
+      Affiche sa longueur avec <code>console.log</code>.</p>
+      <h2 id="exercice-2-ajout-et-suppression">Exercice 2 – Ajout et
+      suppression</h2>
+      <ol type="1">
+      <li>Ajoute <code>"kiwi"</code> à la fin du tableau
+      <code>fruits</code>.<br />
+      </li>
+      <li>Supprime le premier élément.<br />
+      </li>
+      <li>Affiche le tableau après chaque étape.</li>
+      </ol>
+      <h2 id="exercice-3-fusion-et-conversion">Exercice 3 – Fusion et
+      conversion</h2>
+      <ol type="1">
+      <li>Crée un tableau
+      <code>legumes = ["carotte","tomate"]</code>.<br />
+      </li>
+      <li>Fusionne <code>fruits</code> et <code>legumes</code> dans un
+      nouveau tableau <code>courses</code>.<br />
+      </li>
+      <li>Transforme <code>courses</code> en une chaîne séparée par des
+      tirets (<code>-</code>).</li>
+      </ol>
+      <h2 id="exercice-4-parcours-et-transformation">Exercice 4 –
+      Parcours et transformation</h2>
+      <ol type="1">
+      <li>Crée un tableau <code>nombres = [1,2,3,4,5]</code>.<br />
+      </li>
+      <li>Utilise <code>forEach</code> pour afficher chaque nombre
+      multiplié par 2.<br />
+      </li>
+      <li>Utilise <code>map</code> pour créer un nouveau tableau
+      <code>carres</code> contenant le carré de chaque nombre.</li>
+      </ol>
+      <h2 id="exercice-5-filtrage-et-recherche">Exercice 5 – Filtrage et
+      recherche</h2>
+      <ol type="1">
+      <li>À partir de <code>nombres</code>, crée un tableau
+      <code>pairs</code> contenant uniquement les nombres pairs.<br />
+      </li>
+      <li>Utilise <code>find</code> pour récupérer le premier nombre
+      supérieur à 3.<br />
+      </li>
+      <li>Vérifie si le tableau contient le nombre <code>4</code> avec
+      <code>includes</code>.</li>
+      </ol>
+      <h2 id="exercice-6-réduction">Exercice 6 – Réduction</h2>
+      <p>Écris un programme qui calcule :<br />
+      1. La somme des éléments du tableau
+      <code>[10, 20, 30, 40]</code>.<br />
+      2. Le produit des mêmes éléments.<br />
+      Astuce : utilise <code>reduce</code>.</p>
+      <h2 id="exercice-7-tri-et-ordre">Exercice 7 – Tri et ordre</h2>
+      <ol type="1">
+      <li>Crée un tableau <code>notes = [12, 5, 18, 9, 15]</code>.<br />
+      </li>
+      <li>Trie les notes dans l’ordre croissant.<br />
+      </li>
+      <li>Trie ensuite dans l’ordre décroissant.<br />
+      </li>
+      <li>Inverse l’ordre avec <code>reverse</code>.</li>
+      </ol>
+      <h2 id="exercice-8-méthodes-avancées">Exercice 8 – Méthodes
+      avancées</h2>
+      <ol type="1">
+      <li>Crée un tableau
+      <code>phrase = ["bonjour", "le", "monde"]</code>.<br />
+      </li>
+      <li>Utilise <code>flatMap</code> pour obtenir un tableau de
+      <strong>lettres individuelles</strong>.<br />
+      </li>
+      <li>Crée un tableau <code>[1, 2, 3, 4, 5]</code> et remplis tous
+      les éléments avec <code>0</code> à partir de l’index
+      <code>2</code>.</li>
+      </ol>
+      <h2 id="exercice-9-cas-pratique">Exercice 9 – Cas pratique</h2>
+      <p>Un tableau
+      <code>panier = ["pomme","banane","pomme","orange","banane","pomme"]</code>.<br />
+      1. Calcule combien de fois chaque fruit apparaît (résultat attendu
+      : <code>{ pomme: 3, banane: 2, orange: 1 }</code>).<br />
+      2. Utilise <code>reduce</code> pour y parvenir.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>Les tableaux se manipulent avec des méthodes qui
+      <strong>mutent</strong> (ex: <code>push</code>, <code>pop</code>,
+      <code>splice</code>, <code>sort</code>) ou qui créent un
+      <strong>nouveau tableau</strong> (ex: <code>slice</code>,
+      <code>map</code>, <code>filter</code>, <code>concat</code>).<br />
+      </li>
+      <li>Les méthodes de recherche (<code>find</code>,
+      <code>includes</code>, <code>indexOf</code>) sont essentielles
+      pour tester la présence d’éléments.<br />
+      </li>
+      <li><code>reduce</code> permet de transformer un tableau entier en
+      une seule valeur (somme, produit, objet, etc.).<br />
+      </li>
+      <li>Un bon usage combiné de <code>map</code>, <code>filter</code>
+      et <code>reduce</code> rend le code concis et puissant.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="./c_memo.html">Chapitre précédent : Mémo</a></p>
+      <p>➡️ <a href="../07_loops/a_boucles.html">Chapitre suivant : Les
+      Boucles</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

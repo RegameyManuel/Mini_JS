@@ -1,0 +1,205 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  b_Exercices</title>
+        <meta name="description" content="Série d’exercices pratiques
+pour manipuler l’objet <code>Date</code> en JavaScript (création,
+lecture, modification, comparaison et formatage)." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="a_date-time.html">a_date-time</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-sur-les-dates-et-le-temps"
+        id="toc-exercices-sur-les-dates-et-le-temps">Exercices sur les
+        dates et le temps</a>
+        <ul>
+        <li><a href="#exercice-1-date-courante"
+        id="toc-exercice-1-date-courante">Exercice 1 — Date
+        courante</a></li>
+        <li><a href="#exercice-2-date-précise"
+        id="toc-exercice-2-date-précise">Exercice 2 — Date
+        précise</a></li>
+        <li><a href="#exercice-3-calcul-dâge"
+        id="toc-exercice-3-calcul-dâge">Exercice 3 — Calcul
+        d’âge</a></li>
+        <li><a href="#exercice-4-différence-entre-deux-dates"
+        id="toc-exercice-4-différence-entre-deux-dates">Exercice 4 —
+        Différence entre deux dates</a></li>
+        <li><a href="#exercice-5-manipulation-dhoraires"
+        id="toc-exercice-5-manipulation-dhoraires">Exercice 5 —
+        Manipulation d’horaires</a></li>
+        <li><a href="#exercice-6-fuseau-horaire"
+        id="toc-exercice-6-fuseau-horaire">Exercice 6 — Fuseau
+        horaire</a></li>
+        <li><a href="#exercice-7-formatage-localisé"
+        id="toc-exercice-7-formatage-localisé">Exercice 7 — Formatage
+        localisé</a></li>
+        <li><a href="#exercice-8-iso-et-json"
+        id="toc-exercice-8-iso-et-json">Exercice 8 — ISO et
+        JSON</a></li>
+        <li><a href="#exercice-9-minuteur-simple"
+        id="toc-exercice-9-minuteur-simple">Exercice 9 — Minuteur
+        simple</a></li>
+        <li><a href="#exercice-10-projet-de-synthèse"
+        id="toc-exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+        synthèse</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS b_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices-sur-les-dates-et-le-temps">Exercices sur les
+      dates et le temps</h1>
+      <p>Ces exercices permettent de mettre en application les notions
+      vues sur l’objet <code>Date</code> : création d’instances,
+      consultation et modification des valeurs, comparaison de moments,
+      formatage et calculs temporels.</p>
+      <hr />
+      <h2 id="exercice-1-date-courante">Exercice 1 — Date courante</h2>
+      <p>Crée un objet <code>Date</code> contenant la date et l’heure
+      actuelles, puis affiche-le dans la console avec
+      <code>toString()</code> et <code>toLocaleString()</code> pour
+      comparer les formats.</p>
+      <hr />
+      <h2 id="exercice-2-date-précise">Exercice 2 — Date précise</h2>
+      <p>Crée un objet <code>Date</code> représentant le 14 juillet 2025
+      à midi. Vérifie que les valeurs de jour, mois et année
+      correspondent à ce que tu attends avec <code>getDate()</code>,
+      <code>getMonth()</code> et <code>getFullYear()</code>.</p>
+      <hr />
+      <h2 id="exercice-3-calcul-dâge">Exercice 3 — Calcul d’âge</h2>
+      <p>Écris une fonction qui prend une année de naissance en
+      paramètre et qui retourne l’âge de la personne à la date du jour.
+      Utilise <code>getFullYear()</code> sur la date courante.</p>
+      <hr />
+      <h2 id="exercice-4-différence-entre-deux-dates">Exercice 4 —
+      Différence entre deux dates</h2>
+      <p>Crée deux objets <code>Date</code> représentant le 1er janvier
+      2025 et le 1er janvier 2026. Calcule le nombre de jours écoulés
+      entre ces deux dates. Indice : utilise <code>getTime()</code> pour
+      obtenir la valeur en millisecondes.</p>
+      <hr />
+      <h2 id="exercice-5-manipulation-dhoraires">Exercice 5 —
+      Manipulation d’horaires</h2>
+      <p>Crée une date correspondant au 1er mars 2025 à 8h30.</p>
+      <ul>
+      <li>Modifie-la pour qu’elle corresponde au 1er mars 2025 à 15h45
+      en utilisant <code>setHours</code> et
+      <code>setMinutes</code>.<br />
+      </li>
+      <li>Affiche ensuite l’heure finale avec
+      <code>toTimeString()</code>.</li>
+      </ul>
+      <hr />
+      <h2 id="exercice-6-fuseau-horaire">Exercice 6 — Fuseau
+      horaire</h2>
+      <p>Crée une date correspondant à l’instant présent.<br />
+      Affiche la différence avec UTC en utilisant
+      <code>getTimezoneOffset()</code>. Indique si ton fuseau horaire
+      est en avance ou en retard par rapport à l’heure universelle.</p>
+      <hr />
+      <h2 id="exercice-7-formatage-localisé">Exercice 7 — Formatage
+      localisé</h2>
+      <p>Crée un objet <code>Date</code> et affiche-le au format
+      français (<code>fr-FR</code>) et au format anglais
+      (<code>en-US</code>) à l’aide de <code>toLocaleDateString</code>
+      et <code>toLocaleTimeString</code>.</p>
+      <hr />
+      <h2 id="exercice-8-iso-et-json">Exercice 8 — ISO et JSON</h2>
+      <p>Crée un objet <code>Date</code> et affiche le résultat de
+      <code>toISOString()</code> et de <code>toJSON()</code>. Compare
+      les deux sorties et explique en quoi elles se ressemblent ou se
+      distinguent.</p>
+      <hr />
+      <h2 id="exercice-9-minuteur-simple">Exercice 9 — Minuteur
+      simple</h2>
+      <p>Écris une fonction qui prend une durée en secondes et qui
+      calcule la date et l’heure de fin en ajoutant cette durée à la
+      date courante. Affiche le résultat.</p>
+      <hr />
+      <h2 id="exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+      synthèse</h2>
+      <p>Conçois un petit programme qui affiche la date du jour, l’heure
+      actuelle, l’heure dans une semaine et le nombre de jours restants
+      avant la fin de l’année. Utilise les différentes méthodes vues
+      (<code>getDate</code>, <code>getMonth</code>,
+      <code>setDate</code>, <code>getTime</code>, etc.).</p>
+      <hr />
+      <p>⬅️ <a href="./a_date-time.html">Chapitre précédent : Date et
+      temps</a></p>
+      <p>➡️ <a href="./c_autre_section.html">Chapitre suivant :
+      …</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

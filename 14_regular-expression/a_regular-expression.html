@@ -1,0 +1,411 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  a_regular-expression</title>
+        <meta name="description" content="Une expression régulière
+(regex) est un outil puissant pour rechercher, comparer et manipuler du
+texte en fonction de modèles précis." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="b_exercices.html">b_Exercices</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#expressions-régulières"
+        id="toc-expressions-régulières">Expressions régulières</a>
+        <ul>
+        <li><a href="#les-modificateurs" id="toc-les-modificateurs">Les
+        modificateurs</a></li>
+        <li><a href="#les-ensembles-de-caractères"
+        id="toc-les-ensembles-de-caractères">Les ensembles de
+        caractères</a></li>
+        <li><a href="#les-métacaractères"
+        id="toc-les-métacaractères">Les métacaractères</a></li>
+        <li><a href="#propriétés-et-méthodes"
+        id="toc-propriétés-et-méthodes">Propriétés et méthodes</a></li>
+        <li><a href="#exemples-dutilisation"
+        id="toc-exemples-dutilisation">Exemples d’utilisation</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS a_regular-expression</h1>
+      
+      
+      
+      <h1 id="expressions-régulières">Expressions régulières</h1>
+      <p>Les expressions régulières, souvent abrégées en <em>regex</em>,
+      constituent un langage spécialisé destiné à la recherche et à la
+      manipulation de chaînes de caractères. Elles permettent de définir
+      des modèles capables de détecter des motifs précis dans un texte,
+      d’extraire des parties correspondantes ou encore de remplacer
+      certains éléments.</p>
+      <p>En JavaScript, une expression régulière peut être créée de deux
+      manières : soit grâce au constructeur <code>RegExp</code>, soit en
+      utilisant la notation littérale entourée de barres obliques.</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Avec le constructeur</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> re1 <span class="op">=</span> <span class="kw">new</span> <span class="bu">RegExp</span>(<span class="st">&quot;xyz&quot;</span>)<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">// Avec la notation littérale</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> re2 <span class="op">=</span> <span class="ss">/xyz/</span><span class="op">;</span></span></code></pre></div>
+      <p>Dans les deux cas, on obtient un objet <code>RegExp</code> qui
+      dispose des mêmes propriétés et méthodes. L’usage du constructeur
+      est utile lorsqu’on veut construire une regex dynamiquement à
+      partir de variables, tandis que la notation littérale est plus
+      concise dans la plupart des cas.</p>
+      <h2 id="les-modificateurs">Les modificateurs</h2>
+      <p>Une regex peut être enrichie de modificateurs, appelés aussi
+      drapeaux, qui changent la manière dont elle s’applique :</p>
+      <ul>
+      <li><code>g</code> : recherche globale, pour trouver toutes les
+      occurrences au lieu de s’arrêter à la première,</li>
+      <li><code>i</code> : recherche insensible à la casse,</li>
+      <li><code>m</code> : recherche multilignes.</li>
+      </ul>
+      <p>Par exemple :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> pattern <span class="op">=</span> <span class="ss">/hello/gi</span><span class="op">;</span></span></code></pre></div>
+      <p>Ici, la recherche de « hello » sera effectuée sans tenir compte
+      de la casse et sur l’ensemble du texte.</p>
+      <h2 id="les-ensembles-de-caractères">Les ensembles de
+      caractères</h2>
+      <p>Les crochets <code>[ ]</code> permettent de cibler une plage de
+      caractères ou un groupe défini :</p>
+      <ul>
+      <li><code>[abc]</code> : trouve un caractère parmi <code>a</code>,
+      <code>b</code> ou <code>c</code>,</li>
+      <li><code>[^abc]</code> : trouve un caractère qui n’est pas
+      <code>a</code>, <code>b</code> ou <code>c</code>,</li>
+      <li><code>[0-9]</code> : trouve un chiffre,</li>
+      <li><code>[^0-9]</code> : trouve un caractère qui n’est pas un
+      chiffre,</li>
+      <li><code>(x|y)</code> : trouve l’une des alternatives
+      proposées.</li>
+      </ul>
+      <h2 id="les-métacaractères">Les métacaractères</h2>
+      <p>Les regex reposent sur des caractères spéciaux, appelés
+      <strong>métacaractères</strong>, qui enrichissent considérablement
+      leur expressivité.</p>
+      <table>
+      <colgroup>
+      <col style="width: 16%" />
+      <col style="width: 83%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Métacaractère</th>
+      <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td><code>.</code></td>
+      <td>Correspond à n’importe quel caractère sauf la nouvelle
+      ligne</td>
+      </tr>
+      <tr class="even">
+      <td><code>\w</code></td>
+      <td>Correspond à un caractère alphanumérique
+      <code>[a-zA-Z0-9_]</code></td>
+      </tr>
+      <tr class="odd">
+      <td><code>\W</code></td>
+      <td>Correspond à tout caractère non alphanumérique</td>
+      </tr>
+      <tr class="even">
+      <td><code>\d</code></td>
+      <td>Correspond à un chiffre <code>[0-9]</code></td>
+      </tr>
+      <tr class="odd">
+      <td><code>\D</code></td>
+      <td>Correspond à un caractère qui n’est pas un chiffre</td>
+      </tr>
+      <tr class="even">
+      <td><code>\s</code></td>
+      <td>Correspond à un espace (espace, tabulation, etc.)</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\S</code></td>
+      <td>Correspond à un caractère qui n’est pas un espace</td>
+      </tr>
+      <tr class="even">
+      <td><code>\b</code></td>
+      <td>Correspond au début ou à la fin d’un mot</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\B</code></td>
+      <td>Correspond à tout sauf le début ou la fin d’un mot</td>
+      </tr>
+      <tr class="even">
+      <td><code>\0</code></td>
+      <td>Correspond au caractère NULL</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\n</code></td>
+      <td>Correspond à un retour à la ligne</td>
+      </tr>
+      <tr class="even">
+      <td><code>\f</code></td>
+      <td>Correspond à un saut de page</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\r</code></td>
+      <td>Correspond à un retour chariot</td>
+      </tr>
+      <tr class="even">
+      <td><code>\t</code></td>
+      <td>Correspond à une tabulation</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\v</code></td>
+      <td>Correspond à une tabulation verticale</td>
+      </tr>
+      <tr class="even">
+      <td><code>\xxx</code></td>
+      <td>Correspond à un caractère défini par un code octal</td>
+      </tr>
+      <tr class="odd">
+      <td><code>\xdd</code></td>
+      <td>Correspond à un caractère défini par un code hexadécimal</td>
+      </tr>
+      <tr class="even">
+      <td><code>\udddd</code></td>
+      <td>Correspond à un caractère Unicode défini par un nombre
+      hexadécimal</td>
+      </tr>
+      </tbody>
+      </table>
+      <h2 id="propriétés-et-méthodes">Propriétés et méthodes</h2>
+      <p>Les objets <code>RegExp</code> possèdent différentes propriétés
+      et méthodes pour travailler avec les modèles :</p>
+      <table>
+      <colgroup>
+      <col style="width: 15%" />
+      <col style="width: 84%" />
+      </colgroup>
+      <thead>
+      <tr class="header">
+      <th>Nom</th>
+      <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td><code>constructor</code></td>
+      <td>Renvoie la fonction qui a créé le prototype de l’objet
+      <code>RegExp</code></td>
+      </tr>
+      <tr class="even">
+      <td><code>global</code></td>
+      <td>Indique si le modificateur <code>g</code> est activé</td>
+      </tr>
+      <tr class="odd">
+      <td><code>ignoreCase</code></td>
+      <td>Indique si le modificateur <code>i</code> est activé</td>
+      </tr>
+      <tr class="even">
+      <td><code>lastIndex</code></td>
+      <td>Position à laquelle commencera la recherche suivante</td>
+      </tr>
+      <tr class="odd">
+      <td><code>multiline</code></td>
+      <td>Indique si le modificateur <code>m</code> est activé</td>
+      </tr>
+      <tr class="even">
+      <td><code>source</code></td>
+      <td>Retourne le texte du modèle de l’expression régulière</td>
+      </tr>
+      <tr class="odd">
+      <td><code>exec()</code></td>
+      <td>Renvoie la première correspondance trouvée ou
+      <code>null</code></td>
+      </tr>
+      <tr class="even">
+      <td><code>test()</code></td>
+      <td>Renvoie <code>true</code> ou <code>false</code> selon que le
+      modèle correspond au texte ou non</td>
+      </tr>
+      <tr class="odd">
+      <td><code>toString()</code></td>
+      <td>Renvoie la représentation en chaîne de l’expression
+      régulière</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>⚠️ La méthode <code>compile()</code> existe encore mais est
+      obsolète et ne doit plus être utilisée.</p>
+      <h2 id="exemples-dutilisation">Exemples d’utilisation</h2>
+      <p>Voici quelques exemples concrets d’utilisation des regex en
+      JavaScript :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> text <span class="op">=</span> <span class="st">&quot;Les meilleures choses dans la vie sont gratuites&quot;</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">// Chercher la première occurrence de la lettre &quot;e&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> result <span class="op">=</span> <span class="ss">/e/</span><span class="op">.</span><span class="fu">exec</span>(text)<span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(result[<span class="dv">0</span>])<span class="op">;</span> <span class="co">// &quot;e&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> helloWorldText <span class="op">=</span> <span class="st">&quot;Hello world!&quot;</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">// Tester la présence du mot &quot;Hello&quot;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> pattern1 <span class="op">=</span> <span class="ss">/Hello/g</span><span class="op">;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(pattern1<span class="op">.</span><span class="fu">test</span>(helloWorldText))<span class="op">;</span> <span class="co">// true</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">// Obtenir la chaîne représentant le motif</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> pattern1String <span class="op">=</span> pattern1<span class="op">.</span><span class="fu">toString</span>()<span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(pattern1String)<span class="op">;</span> <span class="co">// &quot;/Hello/g&quot;</span></span></code></pre></div>
+      <p>Les expressions régulières permettent ainsi d’exprimer des
+      recherches complexes en quelques caractères, ce qui en fait un
+      outil précieux pour l’analyse et le traitement de texte.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les expressions régulières (regex) servent à rechercher et
+      manipuler des chaînes de caractères selon des motifs précis. Elles
+      peuvent être définies avec le constructeur <code>RegExp</code> ou
+      par une notation littérale, enrichies de modificateurs comme
+      <code>g</code>, <code>i</code> et <code>m</code>. Elles reposent
+      sur des ensembles de caractères, des métacaractères et des
+      méthodes dédiées (<code>test</code>, <code>exec</code>, etc.).
+      Bien qu’elles puissent paraître difficiles à lire au premier
+      abord, elles offrent une puissance et une flexibilité inégalées
+      pour travailler avec du texte.</p>
+      <hr />
+      <p>⬅️ <a href="../13_modules/b_exercices.html">Chapitre précédent
+      : …</a></p>
+      <p>➡️ <a href="./b_autre_section.html">Chapitre suivant :
+      …</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

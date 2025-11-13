@@ -1,0 +1,252 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  a_Fonctions</title>
+        <meta name="description" content="Les fonctions sont des blocs
+de code réutilisables qui exécutent une tâche spécifique. Elles
+acceptent des valeurs d’entrée appelées arguments et renvoient un
+résultat. Indispensables en programmation, elles permettent de
+structurer et d’organiser efficacement un programme." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="b_higher-order.html">b_higher-order</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#les-fonctions" id="toc-les-fonctions">Les
+        Fonctions</a>
+        <ul>
+        <li><a href="#déclaration-et-expression-de-fonction"
+        id="toc-déclaration-et-expression-de-fonction">Déclaration et
+        expression de fonction</a></li>
+        <li><a href="#fonctions-comme-valeurs"
+        id="toc-fonctions-comme-valeurs">Fonctions comme
+        valeurs</a></li>
+        <li><a href="#les-fonctions-fléchées"
+        id="toc-les-fonctions-fléchées">Les fonctions fléchées</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS a_Fonctions</h1>
+      
+      
+      
+      <h1 id="les-fonctions">Les Fonctions</h1>
+      <p>Parmi toutes les notions de la programmation, les fonctions
+      occupent une place centrale. Elles permettent de regrouper un
+      ensemble d’instructions sous un nom unique, de les exécuter à
+      volonté et de les réutiliser dans différents contextes. À l’image
+      des fonctions mathématiques, elles prennent des <strong>valeurs
+      d’entrée</strong> (appelées <em>arguments</em>) et produisent
+      généralement une <strong>valeur de sortie</strong>.</p>
+      <p>Définir une fonction, c’est donc décrire une opération que l’on
+      pourra ensuite invoquer dans le reste du programme. Une fois
+      définie, elle peut être appelée à tout moment, ce qui en fait un
+      outil incontournable pour éviter la répétition de code.</p>
+      <h2 id="déclaration-et-expression-de-fonction">Déclaration et
+      expression de fonction</h2>
+      <p>Il existe deux manières principales de créer une fonction en
+      JavaScript.</p>
+      <p>La première est la <strong>déclaration de fonction</strong>.
+      Elle consiste à introduire un nom de fonction, suivi de ses
+      arguments et de son corps :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">double</span>(x) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> x<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+      <p>Une particularité de la déclaration de fonction est qu’elle
+      peut être invoquée même avant sa définition, car le moteur
+      JavaScript les enregistre dès le début de l’exécution.</p>
+      <p>La seconde méthode est l’<strong>expression de
+      fonction</strong>. Ici, la fonction est affectée à une variable,
+      ce qui en fait une valeur manipulable comme n’importe quelle autre
+      donnée :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> double <span class="op">=</span> <span class="kw">function</span>(x) {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="dv">2</span> <span class="op">*</span> x<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+      <p>Dans ce cas, la fonction ne peut pas être utilisée avant sa
+      définition, exactement comme une variable classique. Si le nom est
+      omis, on parle alors de <strong>fonction anonyme</strong>.</p>
+      <h2 id="fonctions-comme-valeurs">Fonctions comme valeurs</h2>
+      <p>En JavaScript, les fonctions sont de véritables valeurs. Elles
+      peuvent être stockées dans des variables, passées en argument à
+      d’autres fonctions, ou encore renvoyées comme résultat. Ce
+      comportement particulier permet de définir des fonctions dites
+      <strong>callbacks</strong>, qui sont exécutées par une autre
+      fonction à un moment précis :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">saluer</span>(nom<span class="op">,</span> action) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Bonjour &quot;</span> <span class="op">+</span> nom)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">action</span>()<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saluer</span>(<span class="st">&quot;Alice&quot;</span><span class="op">,</span> <span class="kw">function</span>() {</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Bienvenue dans le programme !&quot;</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>Ici, la fonction anonyme fournie comme deuxième argument sera
+      exécutée après l’affichage du message de salutation.</p>
+      <h2 id="les-fonctions-fléchées">Les fonctions fléchées</h2>
+      <p>Depuis les versions modernes de JavaScript, on peut aussi
+      écrire des <strong>fonctions fléchées</strong> (<em>arrow
+      functions</em>), qui constituent une forme plus compacte :</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> double <span class="op">=</span> (x) <span class="kw">=&gt;</span> <span class="dv">2</span> <span class="op">*</span> x<span class="op">;</span></span></code></pre></div>
+      <p>Cette écriture est particulièrement appréciée pour sa
+      concision. Cependant, elle diffère des fonctions traditionnelles
+      sur certains points importants : une fonction fléchée n’a pas ses
+      propres valeurs pour <code>this</code>, <code>arguments</code> ou
+      <code>super</code>, et elle ne peut pas être utilisée comme
+      constructeur. Cela la rend pratique pour les petites opérations,
+      mais moins adaptée dans certains cas.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les fonctions permettent de structurer et de réutiliser le
+      code. On peut les définir sous forme de
+      <strong>déclaration</strong> ou d’<strong>expression</strong>,
+      leur donner un nom ou non, et même les écrire de manière plus
+      concise grâce aux <strong>fonctions fléchées</strong>. En tant que
+      valeurs, elles peuvent être transmises à d’autres fonctions, ce
+      qui ouvre la voie à des concepts avancés comme les
+      <strong>callbacks</strong>.</p>
+      <hr />
+      <p>⬅️ <a href="../07_loops/g_exercices.html">Chapitre précédent :
+      Contrôle du Flux</a></p>
+      <p>➡️ <a href="./b_higher-order.html">Chapitre suivant : Les
+      Paramètres</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,276 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  d_Portee</title>
+        <meta name="description" content="La portée détermine l’endroit
+où une variable est accessible dans un programme. En JavaScript, on
+distingue la portée globale, locale et de bloc. Les fermetures
+(closures) prolongent cette idée en permettant à une fonction de se
+souvenir de son environnement." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="c_parametres.html">c_Parametres</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="e_fonctionsflechees.html">e_FonctionsFlechees</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#les-portées" id="toc-les-portées">Les Portées</a>
+        <ul>
+        <li><a href="#portée-globale" id="toc-portée-globale">Portée
+        globale</a></li>
+        <li><a href="#portée-locale" id="toc-portée-locale">Portée
+        locale</a></li>
+        <li><a href="#portée-de-bloc" id="toc-portée-de-bloc">Portée de
+        bloc</a></li>
+        <li><a href="#les-fermetures-closures"
+        id="toc-les-fermetures-closures">Les fermetures
+        (closures)</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS d_Portee</h1>
+      
+      
+      
+      <h1 id="les-portées">Les Portées</h1>
+      <p>Lorsqu’on écrit du code, toutes les variables n’ont pas la même
+      « visibilité ». Certaines peuvent être utilisées partout, d’autres
+      seulement dans une fonction ou un bloc donné. Cette notion est
+      appelée <strong>portée</strong> (ou <em>scope</em> en anglais).
+      Elle définit l’endroit où une variable est accessible, et elle
+      joue un rôle essentiel dans l’organisation et la sécurité du
+      code.</p>
+      <h2 id="portée-globale">Portée globale</h2>
+      <p>Une variable déclarée en dehors de toute fonction ou bloc
+      appartient à la <strong>portée globale</strong>.<br />
+      Elle est accessible depuis n’importe quelle partie du programme
+      :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> message <span class="op">=</span> <span class="st">&quot;Bonjour&quot;</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">saluer</span>() {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span> <span class="co">// accessible</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">saluer</span>()<span class="op">;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message)<span class="op">;</span> <span class="co">// toujours accessible</span></span></code></pre></div>
+      <p>Attention toutefois : les variables globales peuvent provoquer
+      des conflits si elles sont trop nombreuses. C’est pourquoi il est
+      recommandé de les limiter au strict nécessaire.</p>
+      <h2 id="portée-locale">Portée locale</h2>
+      <p>Lorsqu’une variable est déclarée à l’intérieur d’une fonction,
+      elle n’est visible qu’à l’intérieur de cette fonction. On parle
+      alors de <strong>portée locale</strong> :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">saluer</span>() {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> texte <span class="op">=</span> <span class="st">&quot;Salut !&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(texte)<span class="op">;</span> <span class="co">// accessible ici</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">saluer</span>()<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(texte)<span class="op">;</span> <span class="co">// Erreur : texte n’existe pas en dehors</span></span></code></pre></div>
+      <p>Chaque fonction définit ainsi son propre environnement
+      isolé.</p>
+      <h2 id="portée-de-bloc">Portée de bloc</h2>
+      <p>Avec les mots-clés modernes <code>let</code> et
+      <code>const</code>, JavaScript introduit la <strong>portée de
+      bloc</strong>. Une variable définie à l’intérieur d’accolades
+      <code>{ ... }</code> n’est accessible qu’à l’intérieur de ce bloc,
+      qu’il s’agisse d’une condition ou d’une boucle.</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="kw">true</span>) {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> a <span class="op">=</span> <span class="dv">42</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(a)<span class="op">;</span> <span class="co">// accessible</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(a)<span class="op">;</span> <span class="co">// Erreur : a n’est pas défini</span></span></code></pre></div>
+      <p>En revanche, avec <code>var</code>, la portée est uniquement
+      fonctionnelle et non pas limitée au bloc. Cela peut entraîner des
+      comportements surprenants :</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="kw">true</span>) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">var</span> b <span class="op">=</span> <span class="dv">99</span><span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(b)<span class="op">;</span> <span class="co">// 99, car var ignore la portée de bloc</span></span></code></pre></div>
+      <p>C’est l’une des raisons pour lesquelles <code>let</code> et
+      <code>const</code> sont aujourd’hui préférés.</p>
+      <h2 id="les-fermetures-closures">Les fermetures (closures)</h2>
+      <p>Un concept plus avancé lié à la portée est celui de la
+      <strong>fermeture</strong>. Une fermeture est une fonction qui «
+      se souvient » de l’environnement dans lequel elle a été créée,
+      même après la fin de l’exécution de cet environnement.</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">createCounter</span>() {</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> count <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="kw">function</span>() {</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    count<span class="op">++;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> count<span class="op">;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> incrementer <span class="op">=</span> <span class="fu">createCounter</span>()<span class="op">;</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">incrementer</span>())<span class="op">;</span> <span class="co">// 1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">incrementer</span>())<span class="op">;</span> <span class="co">// 2</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">incrementer</span>())<span class="op">;</span> <span class="co">// 3</span></span></code></pre></div>
+      <p>Ici, la fonction renvoyée continue d’accéder à la variable
+      <code>count</code>, bien que la fonction
+      <code>createCounter</code> soit terminée. Cette capacité à
+      capturer un contexte est très puissante, notamment pour créer des
+      fonctions personnalisées ou gérer de la mémoire interne.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>La <strong>portée globale</strong> concerne les variables
+      accessibles partout.</li>
+      <li>La <strong>portée locale</strong> limite les variables à une
+      fonction.</li>
+      <li>La <strong>portée de bloc</strong> (avec <code>let</code> et
+      <code>const</code>) restreint les variables à l’intérieur des
+      accolades.</li>
+      <li>Les <strong>fermetures</strong> permettent à une fonction de
+      conserver l’accès aux variables de son environnement, même après
+      la fin de celui-ci.</li>
+      </ul>
+      <p>Comprendre ces notions est fondamental pour éviter les erreurs
+      de logique et pour écrire du code clair et robuste.</p>
+      <hr />
+      <p>⬅️ <a href="./c_parametres.html">Chapitre précédent : Les
+      Paramètres</a></p>
+      <p>➡️ <a href="./e_fonctionsflechees.html">Chapitre suivant : Les
+      Fonctions fléchées</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

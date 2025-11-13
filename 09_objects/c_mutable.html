@@ -1,0 +1,217 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  c_mutable</title>
+        <meta name="description" content="La mutabilité désigne la
+capacité d’un objet à être modifié après sa création, contrairement à
+l’immutabilité qui implique qu’un changement produit une nouvelle valeur
+sans altérer l’original. Cette distinction est essentielle en JavaScript
+pour comprendre la différence entre objets et valeurs primitives." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="b_properties.html">b_properties</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="d_reference.html">d_reference</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#la-mutabilité" id="toc-la-mutabilité">La
+        mutabilité</a>
+        <ul>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS c_mutable</h1>
+      
+      
+      
+      <h1 id="la-mutabilité">La mutabilité</h1>
+      <p>En JavaScript, il est fondamental de distinguer les types de
+      données immuables des types mutables. Les valeurs primitives,
+      comme les nombres, les chaînes de caractères ou les booléens,
+      appartiennent à la première catégorie. Elles ne peuvent pas être
+      modifiées une fois créées. Chaque réaffectation entraîne en
+      réalité la création d’une nouvelle valeur en mémoire, la variable
+      pointant désormais vers cette nouvelle référence.</p>
+      <p>Prenons l’exemple suivant :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> myPrimitive <span class="op">=</span> <span class="st">&quot;première valeur&quot;</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>myPrimitive <span class="op">=</span> <span class="st">&quot;autre valeur&quot;</span><span class="op">;</span></span></code></pre></div>
+      <p>La variable <code>myPrimitive</code> ne contient plus la
+      première chaîne mais une autre. L’ancienne valeur existe toujours
+      quelque part en mémoire, mais elle n’est plus accessible par cette
+      variable. On dit donc que les chaînes sont immuables.</p>
+      <p>Les objets, en revanche, sont mutables. Cela signifie qu’une
+      fois créés, ils peuvent évoluer en conservant la même identité. Si
+      l’on crée un objet et que l’on modifie l’une de ses propriétés,
+      l’objet demeure le même, mais son contenu change.</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> myObject <span class="op">=</span> { <span class="dt">key</span><span class="op">:</span> <span class="st">&quot;première valeur&quot;</span> }<span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>myObject<span class="op">.</span><span class="at">key</span> <span class="op">=</span> <span class="st">&quot;autre valeur&quot;</span><span class="op">;</span></span></code></pre></div>
+      <p>Dans cet exemple, l’objet <code>myObject</code> reste le même,
+      mais sa propriété <code>key</code> a été réécrite. C’est cette
+      souplesse qui rend les objets si puissants en JavaScript, car ils
+      peuvent être enrichis ou modifiés au fil de l’exécution du
+      programme.</p>
+      <p>Il est également possible d’ajouter de nouvelles propriétés à
+      la volée ou d’en supprimer certaines. La syntaxe reste très simple
+      :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> object <span class="op">=</span> {}<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>object<span class="op">.</span><span class="at">foo</span> <span class="op">=</span> <span class="st">&quot;bar&quot;</span><span class="op">;</span>        <span class="co">// Ajout d’une propriété</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>object[<span class="st">&quot;baz&quot;</span>] <span class="op">=</span> <span class="st">&quot;qux&quot;</span><span class="op">;</span>     <span class="co">// Ajout avec notation par crochets</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>object<span class="op">.</span><span class="at">foo</span> <span class="op">=</span> <span class="st">&quot;quux&quot;</span><span class="op">;</span>       <span class="co">// Modification de la propriété existante</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">delete</span> object<span class="op">.</span><span class="at">baz</span><span class="op">;</span>         <span class="co">// Suppression d’une propriété</span></span></code></pre></div>
+      <p>Ces opérations illustrent parfaitement la mutabilité des objets
+      : leur état interne peut être continuellement adapté aux besoins
+      du programme, contrairement aux valeurs primitives qui restent
+      figées.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>La mutabilité est une caractéristique clé des objets en
+      JavaScript. Alors que les valeurs primitives sont immuables et
+      créent une nouvelle référence lorsqu’elles changent, les objets
+      conservent leur identité et autorisent l’ajout, la suppression ou
+      la modification de propriétés. Cette distinction explique pourquoi
+      les objets sont si largement utilisés pour représenter des
+      structures complexes et dynamiques.</p>
+      <hr />
+      <p>⬅️ <a href="./b_properties.html">Chapitre précédent : Les
+      propriétés</a></p>
+      <p>➡️ <a href="./d_reference.html">Chapitre suivant : Les
+      références</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

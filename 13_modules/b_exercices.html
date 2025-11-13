@@ -1,0 +1,228 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  b_Exercices</title>
+        <meta name="description" content="Série d’exercices pratiques
+pour apprendre à organiser du code en modules JavaScript avec
+<code>import</code> et <code>export</code>." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="a_modules.html">a_modules</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-sur-les-modules"
+        id="toc-exercices-sur-les-modules">Exercices sur les modules</a>
+        <ul>
+        <li><a href="#exercice-1-premier-module"
+        id="toc-exercice-1-premier-module">Exercice 1 — Premier
+        module</a></li>
+        <li><a href="#exercice-2-plusieurs-exports-nommés"
+        id="toc-exercice-2-plusieurs-exports-nommés">Exercice 2 —
+        Plusieurs exports nommés</a></li>
+        <li><a href="#exercice-3-export-par-défaut"
+        id="toc-exercice-3-export-par-défaut">Exercice 3 — Export par
+        défaut</a></li>
+        <li><a href="#exercice-4-mélange-dexports"
+        id="toc-exercice-4-mélange-dexports">Exercice 4 — Mélange
+        d’exports</a></li>
+        <li><a href="#exercice-5-organisation-dun-projet"
+        id="toc-exercice-5-organisation-dun-projet">Exercice 5 —
+        Organisation d’un projet</a></li>
+        <li><a href="#exercice-6-renommer-un-import"
+        id="toc-exercice-6-renommer-un-import">Exercice 6 — Renommer un
+        import</a></li>
+        <li><a href="#exercice-7-dépendances-circulaires"
+        id="toc-exercice-7-dépendances-circulaires">Exercice 7 —
+        Dépendances circulaires</a></li>
+        <li><a href="#exercice-8-regrouper-les-exports"
+        id="toc-exercice-8-regrouper-les-exports">Exercice 8 — Regrouper
+        les exports</a></li>
+        <li><a href="#exercice-9-export-dobjets"
+        id="toc-exercice-9-export-dobjets">Exercice 9 — Export
+        d’objets</a></li>
+        <li><a href="#exercice-10-projet-de-synthèse"
+        id="toc-exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+        synthèse</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS b_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices-sur-les-modules">Exercices sur les modules</h1>
+      <p>Ces exercices permettent de mettre en pratique les notions vues
+      dans le chapitre sur les modules : création, exportation et
+      importation de fonctions, variables ou valeurs par défaut.
+      L’objectif est de comprendre comment structurer un projet en
+      plusieurs fichiers clairs et réutilisables.</p>
+      <hr />
+      <h2 id="exercice-1-premier-module">Exercice 1 — Premier
+      module</h2>
+      <p>Crée un fichier <code>mathUtils.js</code> qui exporte une
+      fonction <code>add(a, b)</code> renvoyant la somme des deux
+      nombres.<br />
+      Dans un fichier <code>main.js</code>, importe cette fonction et
+      teste-la avec quelques additions.</p>
+      <hr />
+      <h2 id="exercice-2-plusieurs-exports-nommés">Exercice 2 —
+      Plusieurs exports nommés</h2>
+      <p>Dans un fichier <code>greetings.js</code>, définis deux
+      fonctions :<br />
+      - <code>sayHello(name)</code> qui renvoie « Bonjour, <em>nom</em>
+      »,<br />
+      - <code>sayGoodbye(name)</code> qui renvoie « Au revoir,
+      <em>nom</em> ».<br />
+      Exporte-les toutes les deux et importe-les dans
+      <code>main.js</code> pour afficher les messages
+      correspondants.</p>
+      <hr />
+      <h2 id="exercice-3-export-par-défaut">Exercice 3 — Export par
+      défaut</h2>
+      <p>Crée un fichier <code>square.js</code> contenant une fonction
+      par défaut <code>square(x)</code> qui retourne le carré de son
+      argument.<br />
+      Dans <code>main.js</code>, importe cette fonction et utilise-la
+      pour afficher le carré de plusieurs nombres.</p>
+      <hr />
+      <h2 id="exercice-4-mélange-dexports">Exercice 4 — Mélange
+      d’exports</h2>
+      <p>Dans un fichier <code>person.js</code>, définis une constante
+      <code>species = "Homo sapiens"</code> et une fonction
+      <code>introduce(name, age)</code> qui affiche une
+      présentation.<br />
+      Exporte <code>species</code> comme export nommé et
+      <code>introduce</code> comme export par défaut.<br />
+      Teste dans <code>main.js</code> les deux formes d’import.</p>
+      <hr />
+      <h2 id="exercice-5-organisation-dun-projet">Exercice 5 —
+      Organisation d’un projet</h2>
+      <p>Imagine une mini-application qui gère des produits :<br />
+      - un fichier <code>product.js</code> qui exporte une fonction
+      <code>createProduct(name, price)</code>,<br />
+      - un fichier <code>cart.js</code> qui exporte une fonction
+      <code>addToCart(cart, product)</code> et une fonction
+      <code>getTotal(cart)</code>,<br />
+      - un fichier <code>main.js</code> qui crée quelques produits et
+      calcule le total du panier.</p>
+      <hr />
+      <h2 id="exercice-6-renommer-un-import">Exercice 6 — Renommer un
+      import</h2>
+      <p>Dans un fichier <code>math.js</code>, exporte une fonction
+      <code>multiply(a, b)</code>.<br />
+      Dans <code>main.js</code>, importe-la mais en la renommant en
+      <code>times</code>. Vérifie que tu peux bien appeler
+      <code>times(3, 4)</code> pour obtenir 12.</p>
+      <hr />
+      <h2 id="exercice-7-dépendances-circulaires">Exercice 7 —
+      Dépendances circulaires</h2>
+      <p>Crée deux fichiers <code>a.js</code> et <code>b.js</code>. Dans
+      chacun, importe quelque chose de l’autre et affiche un message.
+      Observe le comportement dans la console. Explique pourquoi il est
+      préférable d’éviter les dépendances circulaires.</p>
+      <hr />
+      <h2 id="exercice-8-regrouper-les-exports">Exercice 8 — Regrouper
+      les exports</h2>
+      <p>Crée un fichier <code>utils.js</code> qui exporte trois
+      fonctions simples : <code>double(x)</code>, <code>triple(x)</code>
+      et <code>quadruple(x)</code>.<br />
+      Dans <code>main.js</code>, importe-les toutes en une seule fois
+      avec la syntaxe <code>import * as utils from "./utils.js"</code>
+      et appelle <code>utils.double(4)</code>,
+      <code>utils.triple(4)</code>, <code>utils.quadruple(4)</code>.</p>
+      <hr />
+      <h2 id="exercice-9-export-dobjets">Exercice 9 — Export
+      d’objets</h2>
+      <p>Dans <code>config.js</code>, exporte un objet
+      <code>settings</code> contenant une langue (<code>fr</code>) et un
+      thème (<code>dark</code>).<br />
+      Dans <code>main.js</code>, importe cet objet et affiche ses
+      propriétés.</p>
+      <hr />
+      <h2 id="exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+      synthèse</h2>
+      <p>Construis une mini-application modulaire :<br />
+      - un fichier <code>user.js</code> qui exporte une fonction pour
+      créer un utilisateur,<br />
+      - un fichier <code>auth.js</code> qui exporte une fonction
+      <code>login(user, password)</code>,<br />
+      - un fichier <code>main.js</code> qui crée un utilisateur et tente
+      une connexion.</p>
+      <p>Organise les fichiers avec des exports nommés et par défaut
+      selon les besoins.</p>
+      <hr />
+      <p>⬅️ <a href="./a_modules.html">Chapitre précédent :
+      Modules</a></p>
+      <p>➡️ <a href="./c_autre_section.html">Chapitre suivant :
+      …</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

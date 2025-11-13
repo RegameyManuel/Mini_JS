@@ -1,0 +1,266 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  e_FonctionsFlechees</title>
+        <meta name="description" content="Les fonctions fléchées,
+introduites avec ES6, offrent une syntaxe plus concise pour définir des
+fonctions. Elles présentent néanmoins certaines particularités,
+notamment concernant la gestion de <code>this</code>." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="d_portee.html">d_Portee</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="f_closures.html">f_Closures</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#les-fonctions-fléchées"
+        id="toc-les-fonctions-fléchées">Les Fonctions fléchées</a>
+        <ul>
+        <li><a href="#syntaxe-de-base" id="toc-syntaxe-de-base">Syntaxe
+        de base</a></li>
+        <li><a href="#différences-avec-les-fonctions-classiques"
+        id="toc-différences-avec-les-fonctions-classiques">Différences
+        avec les fonctions classiques</a></li>
+        <li><a href="#exemple-avec-this"
+        id="toc-exemple-avec-this">Exemple avec
+        <code>this</code></a></li>
+        <li><a href="#cas-dutilisation-courants"
+        id="toc-cas-dutilisation-courants">Cas d’utilisation
+        courants</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS e_FonctionsFlechees</h1>
+      
+      
+      
+      <h1 id="les-fonctions-fléchées">Les Fonctions fléchées</h1>
+      <p>Depuis l’évolution du langage avec ES6, JavaScript propose une
+      nouvelle manière d’écrire des fonctions : les <strong>fonctions
+      fléchées</strong> (<em>arrow functions</em>). Leur nom vient du
+      symbole <code>=&gt;</code> qui les caractérise. Elles apportent
+      une syntaxe plus courte et sont particulièrement adaptées aux
+      fonctions courtes et aux callbacks.</p>
+      <h2 id="syntaxe-de-base">Syntaxe de base</h2>
+      <p>La forme la plus simple consiste à écrire :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> double <span class="op">=</span> (x) <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="fu">double</span>(<span class="dv">4</span>))<span class="op">;</span> <span class="co">// 8</span></span></code></pre></div>
+      <p>Ici, la fonction prend un paramètre <code>x</code> et renvoie
+      directement <code>x * 2</code>. Il n’est pas nécessaire d’écrire
+      le mot-clé <code>function</code>, ni même <code>return</code>
+      lorsque l’instruction est réduite à une seule expression.</p>
+      <h2 id="différences-avec-les-fonctions-classiques">Différences
+      avec les fonctions classiques</h2>
+      <p>Malgré leur concision, les fonctions fléchées ont un
+      comportement différent des fonctions classiques sur plusieurs
+      points importants :</p>
+      <ul>
+      <li>Elles <strong>n’ont pas leur propre <code>this</code></strong>
+      : elles conservent la valeur de <code>this</code> du contexte dans
+      lequel elles sont créées.</li>
+      <li>Elles n’ont pas non plus leurs propres <code>arguments</code>
+      ou <code>super</code>.</li>
+      <li>Elles ne peuvent pas être utilisées comme
+      <strong>constructeurs</strong> (avec <code>new</code>).</li>
+      </ul>
+      <p>Cela les rend pratiques pour certaines situations, mais
+      inadaptées à d’autres.</p>
+      <h2 id="exemple-avec-this">Exemple avec <code>this</code></h2>
+      <p>L’une des différences les plus marquantes se voit avec
+      l’utilisation de <code>this</code> :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">Compteur</span>() {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">valeur</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="pp">setInterval</span>(<span class="kw">function</span>() {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">valeur</span><span class="op">++;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="kw">this</span><span class="op">.</span><span class="at">valeur</span>)<span class="op">;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">Compteur</span>()<span class="op">;</span> <span class="co">// Erreur : this ne désigne pas l&#39;objet Compteur</span></span></code></pre></div>
+      <p>Dans ce cas, la fonction anonyme utilisée dans
+      <code>setInterval</code> définit son propre <code>this</code>, qui
+      n’est pas l’objet <code>Compteur</code>.</p>
+      <p>Avec une fonction fléchée, le problème disparaît :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">Compteur</span>() {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="kw">this</span><span class="op">.</span><span class="at">valeur</span> <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="pp">setInterval</span>(() <span class="kw">=&gt;</span> {</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">this</span><span class="op">.</span><span class="at">valeur</span><span class="op">++;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="kw">this</span><span class="op">.</span><span class="at">valeur</span>)<span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  }<span class="op">,</span> <span class="dv">1000</span>)<span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">Compteur</span>()<span class="op">;</span> <span class="co">// Affiche 1, 2, 3...</span></span></code></pre></div>
+      <p>Ici, la fonction fléchée reprend le <code>this</code> du
+      contexte de création, ce qui correspond bien à l’objet
+      <code>Compteur</code>.</p>
+      <h2 id="cas-dutilisation-courants">Cas d’utilisation courants</h2>
+      <p>Les fonctions fléchées sont très utiles pour :</p>
+      <ul>
+      <li>écrire des callbacks dans des méthodes comme <code>map</code>,
+      <code>filter</code>, <code>reduce</code>, etc.</li>
+      <li>simplifier l’écriture de petites fonctions utilitaires.</li>
+      <li>éviter les pièges liés à la gestion de <code>this</code> dans
+      les fonctions classiques.</li>
+      </ul>
+      <p>Exemple avec <code>map</code> :</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> doubles <span class="op">=</span> nombres<span class="op">.</span><span class="fu">map</span>(n <span class="kw">=&gt;</span> n <span class="op">*</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(doubles)<span class="op">;</span> <span class="co">// [2, 4, 6, 8]</span></span></code></pre></div>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les <strong>fonctions fléchées</strong> sont une syntaxe
+      moderne, concise et pratique. Elles simplifient l’écriture des
+      fonctions courtes et des callbacks, tout en évitant certains
+      problèmes liés à <code>this</code>. Cependant, elles ne remplacent
+      pas totalement les fonctions classiques, car elles ne possèdent
+      pas leur propre <code>this</code>, <code>arguments</code> ou
+      <code>super</code>, et ne peuvent pas servir de constructeurs.</p>
+      <hr />
+      <p>⬅️ <a href="./d_portes.html">Chapitre précédent : Les
+      Portées</a></p>
+      <p>➡️ <a href="./f_closures.html">Chapitre suivant : Les
+      Closures</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,257 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  d_Avances</title>
+        <meta name="description" content="Approfondir la manipulation
+des opérateurs en JavaScript, comprendre leur ordre de priorité et
+découvrir des opérateurs moins connus." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="c_operateurs.html">c_Operateurs</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="e_exercices.html">e_Exercices</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#opérateurs-avancés"
+        id="toc-opérateurs-avancés">Opérateurs avancés</a>
+        <ul>
+        <li><a href="#lordre-des-opérations"
+        id="toc-lordre-des-opérations">L’ordre des opérations</a></li>
+        <li><a href="#lopérateur-de-puissance"
+        id="toc-lopérateur-de-puissance">L’opérateur de
+        puissance</a></li>
+        <li><a href="#incrémentation-et-décrémentation"
+        id="toc-incrémentation-et-décrémentation">Incrémentation et
+        décrémentation</a></li>
+        <li><a href="#opérateurs-daffectation-combinés"
+        id="toc-opérateurs-daffectation-combinés">Opérateurs
+        d’affectation combinés</a></li>
+        <li><a href="#lopérateur-nullish-coalescing"
+        id="toc-lopérateur-nullish-coalescing">L’opérateur nullish
+        coalescing (??)</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS d_Avances</h1>
+      
+      
+      
+      <h1 id="opérateurs-avancés">Opérateurs avancés</h1>
+      <p>Après avoir étudié les opérateurs de base, intéressons-nous à
+      des constructions un peu plus complexes que JavaScript met à notre
+      disposition. Ces opérateurs sont très utiles dans les programmes
+      réels, car ils permettent de gagner en concision et en
+      expressivité.</p>
+      <h2 id="lordre-des-opérations">L’ordre des opérations</h2>
+      <p>Comme en mathématiques, toutes les opérations ne sont pas
+      évaluées dans l’ordre où elles apparaissent. Chaque opérateur
+      possède une <strong>priorité</strong>, appelée
+      <em>précédence</em>.<br />
+      Par exemple, la multiplication et la division sont effectuées
+      avant l’addition et la soustraction. Les parenthèses permettent de
+      modifier cet ordre.</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">4</span>)<span class="op">;</span>   <span class="co">// 14 (multiplication avant addition)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>((<span class="dv">2</span> <span class="op">+</span> <span class="dv">3</span>) <span class="op">*</span> <span class="dv">4</span>)<span class="op">;</span> <span class="co">// 20 (parenthèses prioritaires)</span></span></code></pre></div>
+      <h2 id="lopérateur-de-puissance">L’opérateur de puissance</h2>
+      <p>L’opérateur <code>**</code> permet d’élever un nombre à une
+      puissance donnée. C’est une alternative plus lisible à
+      <code>Math.pow</code>.</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">2</span> <span class="op">**</span> <span class="dv">3</span>)<span class="op">;</span>  <span class="co">// 8</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">5</span> <span class="op">**</span> <span class="dv">2</span>)<span class="op">;</span>  <span class="co">// 25</span></span></code></pre></div>
+      <h2 id="incrémentation-et-décrémentation">Incrémentation et
+      décrémentation</h2>
+      <p>Les opérateurs <code>++</code> et <code>--</code> servent
+      respectivement à augmenter ou diminuer la valeur d’une variable de
+      1. Ils peuvent être utilisés <strong>avant</strong> ou
+      <strong>après</strong> la variable, mais l’effet n’est pas
+      exactement le même.</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="op">++</span>a)<span class="op">;</span> <span class="co">// 6 (incrémentation avant lecture)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(a<span class="op">++</span>)<span class="op">;</span> <span class="co">// 6 (puis la variable passe à 7)</span></span></code></pre></div>
+      <p>Ce comportement est à connaître, même si en pratique on
+      privilégie souvent des formes explicites comme
+      <code>a = a + 1</code>.</p>
+      <h2 id="opérateurs-daffectation-combinés">Opérateurs d’affectation
+      combinés</h2>
+      <p>JavaScript propose des raccourcis pour combiner une opération
+      et une affectation.</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> x <span class="op">=</span> <span class="dv">10</span><span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">+=</span> <span class="dv">5</span><span class="op">;</span>  <span class="co">// équivaut à x = x + 5</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">-=</span> <span class="dv">3</span><span class="op">;</span>  <span class="co">// équivaut à x = x - 3</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">*=</span> <span class="dv">2</span><span class="op">;</span>  <span class="co">// équivaut à x = x * 2</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>x <span class="op">/=</span> <span class="dv">4</span><span class="op">;</span>  <span class="co">// équivaut à x = x / 4</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">%=</span> <span class="dv">3</span><span class="op">;</span>  <span class="co">// équivaut à x = x % 3</span></span></code></pre></div>
+      <p>Ces opérateurs rendent le code plus concis et améliorent la
+      lisibilité lorsqu’une variable est modifiée par rapport à
+      elle-même.</p>
+      <h2 id="lopérateur-nullish-coalescing">L’opérateur nullish
+      coalescing (??)</h2>
+      <p>Introduit plus récemment, l’opérateur <code>??</code> permet de
+      fournir une valeur par défaut lorsqu’une variable vaut
+      <code>null</code> ou <code>undefined</code>.</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> nom<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nom <span class="op">??</span> <span class="st">&quot;Anonyme&quot;</span>)<span class="op">;</span> <span class="co">// &quot;Anonyme&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>nom <span class="op">=</span> <span class="st">&quot;Alice&quot;</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nom <span class="op">??</span> <span class="st">&quot;Anonyme&quot;</span>)<span class="op">;</span> <span class="co">// &quot;Alice&quot;</span></span></code></pre></div>
+      <p>Cet opérateur est particulièrement utile pour éviter les
+      erreurs lorsque certaines valeurs ne sont pas définies.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>En JavaScript, la <strong>précédence des opérateurs</strong>
+      détermine l’ordre des calculs, mais les parenthèses permettent
+      toujours de clarifier les priorités. L’opérateur <code>**</code>
+      sert aux puissances, tandis que <code>++</code> et <code>--</code>
+      permettent d’incrémenter ou décrémenter une variable. Les
+      opérateurs d’affectation combinés (<code>+=</code>,
+      <code>-=</code>, <code>*=</code>, <code>/=</code>,
+      <code>%=</code>) simplifient l’écriture des mises à jour de
+      variables. Enfin, l’opérateur <code>??</code> est une manière
+      élégante de définir une valeur par défaut en cas de
+      <code>null</code> ou <code>undefined</code>.</p>
+      <hr />
+      <p>⬅️ <a href="./c_operateurs.html">Chapitre précédent :
+      Opérateurs de base</a></p>
+      <p>➡️ <a href="./e_exercices.html">Chapitre suivant :
+      Exercices</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

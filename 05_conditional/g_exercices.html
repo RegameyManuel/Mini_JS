@@ -1,0 +1,321 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  g_Exercices</title>
+        <meta name="description" content="Exercices progressifs pour
+pratiquer la logique conditionnelle en JavaScript avec if, else, switch,
+comparaisons et opérateurs logiques." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="f_conditions.html">f_Conditions</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices---conditions"
+        id="toc-exercices---conditions">Exercices - Conditions</a>
+        <ul>
+        <li><a href="#exercice-1---première-condition"
+        id="toc-exercice-1---première-condition">Exercice 1 - Première
+        condition</a></li>
+        <li><a href="#exercice-2---if-else"
+        id="toc-exercice-2---if-else">Exercice 2 - If / else</a></li>
+        <li><a href="#exercice-3---if-else-if-else"
+        id="toc-exercice-3---if-else-if-else">Exercice 3 - If / else if
+        / else</a></li>
+        <li><a href="#exercice-4---switch"
+        id="toc-exercice-4---switch">Exercice 4 - Switch</a></li>
+        <li><a href="#exercice-5---comparaison-stricte"
+        id="toc-exercice-5---comparaison-stricte">Exercice 5 -
+        Comparaison stricte</a></li>
+        <li><a href="#exercice-6---autres-opérateurs-de-comparaison"
+        id="toc-exercice-6---autres-opérateurs-de-comparaison">Exercice
+        6 - Autres opérateurs de comparaison</a></li>
+        <li><a href="#exercice-7---opérateurs-logiques"
+        id="toc-exercice-7---opérateurs-logiques">Exercice 7 -
+        Opérateurs logiques</a></li>
+        <li><a href="#exercice-8---combinaison-avec-or"
+        id="toc-exercice-8---combinaison-avec-or">Exercice 8 -
+        Combinaison avec OR</a></li>
+        <li><a href="#exercice-9---opérateur-ternaire"
+        id="toc-exercice-9---opérateur-ternaire">Exercice 9 - Opérateur
+        ternaire</a></li>
+        <li><a href="#exercice-10---challenge-final"
+        id="toc-exercice-10---challenge-final">Exercice 10 - Challenge
+        final</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS g_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices---conditions">Exercices - Conditions</h1>
+      <p>Ces exercices couvrent l’ensemble du chapitre sur les
+      conditions.<br />
+      Ils sont progressifs : commencez par les plus simples et avancez
+      vers les scénarios plus complexes.</p>
+      <hr />
+      <h2 id="exercice-1---première-condition">Exercice 1 - Première
+      condition</h2>
+      <p>Déclarez une variable <code>age = 20</code>.<br />
+      Écrivez une condition <code>if</code> qui affiche
+      <code>"Majeur"</code> si l’âge est supérieur ou égal à 18.</p>
+      <hr />
+      <h2 id="exercice-2---if-else">Exercice 2 - If / else</h2>
+      <p>Déclarez une variable <code>x = 5</code>.<br />
+      Écrivez une condition qui affiche :<br />
+      - <code>"x est supérieur à 10"</code> si
+      <code>x &gt; 10</code>,<br />
+      - sinon <code>"x est inférieur ou égal à 10"</code>.</p>
+      <hr />
+      <h2 id="exercice-3---if-else-if-else">Exercice 3 - If / else if /
+      else</h2>
+      <p>Déclarez une variable <code>country</code>.<br />
+      Si <code>country === "Espagne"</code>, affichez
+      <code>"Ola"</code>.<br />
+      Si <code>country === "France"</code>, affichez
+      <code>"Bonjour"</code>.<br />
+      Si <code>country === "Allemagne"</code>, affichez
+      <code>"Guten Tag"</code>.<br />
+      Sinon, affichez <code>"Hello"</code>.</p>
+      <hr />
+      <h2 id="exercice-4---switch">Exercice 4 - Switch</h2>
+      <p>Déclarez une variable <code>day = "mercredi"</code>.<br />
+      Utilisez un <code>switch</code> pour afficher :<br />
+      - <code>"Début de semaine"</code> si
+      <code>day === "lundi"</code>,<br />
+      - <code>"Milieu de semaine"</code> si
+      <code>day === "mercredi"</code>,<br />
+      - <code>"Fin de semaine"</code> si
+      <code>day === "vendredi"</code>,<br />
+      - <code>"Jour non reconnu"</code> dans les autres cas.</p>
+      <hr />
+      <h2 id="exercice-5---comparaison-stricte">Exercice 5 - Comparaison
+      stricte</h2>
+      <p>Déclarez deux variables :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> a <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> b <span class="op">=</span> <span class="st">&quot;5&quot;</span><span class="op">;</span></span></code></pre></div>
+      <p>Testez les expressions suivantes avec <code>console.log</code>
+      :</p>
+      <ul>
+      <li><code>a == b</code></li>
+      <li><code>a === b</code></li>
+      <li><code>a != b</code></li>
+      <li><code>a !== b</code></li>
+      </ul>
+      <p>Commentez les résultats.</p>
+      <hr />
+      <h2 id="exercice-6---autres-opérateurs-de-comparaison">Exercice 6
+      - Autres opérateurs de comparaison</h2>
+      <p>Déclarez une variable <code>temperature = 15</code>. Écrivez
+      une condition qui affiche :</p>
+      <ul>
+      <li><code>"Froid"</code> si la température est inférieure à
+      10,</li>
+      <li><code>"Doux"</code> si elle est comprise entre 10 et 20
+      inclus,</li>
+      <li><code>"Chaud"</code> si elle est strictement supérieure à
+      20.</li>
+      </ul>
+      <hr />
+      <h2 id="exercice-7---opérateurs-logiques">Exercice 7 - Opérateurs
+      logiques</h2>
+      <p>Déclarez deux variables :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> age <span class="op">=</span> <span class="dv">25</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> country <span class="op">=</span> <span class="st">&quot;France&quot;</span><span class="op">;</span></span></code></pre></div>
+      <p>Écrivez une condition qui affiche <code>"Accès autorisé"</code>
+      uniquement si l’âge est supérieur ou égal à 18 <strong>et</strong>
+      si le pays est <code>"France"</code>. Sinon, affichez
+      <code>"Accès refusé"</code>.</p>
+      <hr />
+      <h2 id="exercice-8---combinaison-avec-or">Exercice 8 - Combinaison
+      avec OR</h2>
+      <p>Déclarez une variable <code>langue</code>. Affichez
+      <code>"Langue latine"</code> si <code>langue</code> vaut
+      <code>"français"</code> <strong>ou</strong>
+      <code>"espagnol"</code>. Sinon, affichez
+      <code>"Autre langue"</code>.</p>
+      <hr />
+      <h2 id="exercice-9---opérateur-ternaire">Exercice 9 - Opérateur
+      ternaire</h2>
+      <p>Déclarez une variable <code>note = 14</code>. Avec un opérateur
+      ternaire, affectez à une variable <code>mention</code> :</p>
+      <ul>
+      <li><code>"Réussi"</code> si <code>note &gt;= 10</code>,</li>
+      <li><code>"Échec"</code> sinon.</li>
+      </ul>
+      <p>Affichez <code>mention</code>.</p>
+      <hr />
+      <h2 id="exercice-10---challenge-final">Exercice 10 - Challenge
+      final</h2>
+      <p>Écrivez un programme qui :</p>
+      <ol type="1">
+      <li>Demande à l’utilisateur son prénom avec
+      <code>prompt</code>.</li>
+      <li>Si le prénom est <code>"Alice"</code> <strong>ou</strong>
+      <code>"Bob"</code>, affiche <code>"Accès spécial"</code>.</li>
+      <li>Sinon, si l’utilisateur est en France
+      (<code>country = "France"</code>) et majeur
+      (<code>age &gt;= 18</code>), affiche
+      <code>"Accès autorisé"</code>.</li>
+      <li>Sinon, affiche <code>"Accès refusé"</code>.</li>
+      </ol>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>Les conditions contrôlent l’exécution du code.</li>
+      <li><code>if</code>, <code>else if</code>, <code>else</code>
+      permettent de tester plusieurs cas.</li>
+      <li><code>switch</code> rend le code plus lisible quand on compare
+      une même valeur.</li>
+      <li>Utilisez <code>===</code> et <code>!==</code> plutôt que
+      <code>==</code> et <code>!=</code>.</li>
+      <li>Les opérateurs <code>&amp;&amp;</code> (ET) et <code>||</code>
+      (OU) permettent de combiner les conditions.</li>
+      <li>Le ternaire
+      <code>condition ? valeurSiVrai : valeurSiFaux</code> simplifie les
+      <code>if/else</code> simples.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="./f_conditions.html">Chapitre précédent :
+      Opérateurs logiques</a></p>
+      <p>➡️ <a href="../06_arrays/a_array.html">Chapitre suivant : Les
+      Tableaux</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

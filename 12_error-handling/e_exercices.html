@@ -1,0 +1,203 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  e_Exercices</title>
+        <meta name="description" content="Série d’exercices pratiques
+pour manipuler <code>try...catch</code>,
+<code>try...catch...finally</code> et la gestion des erreurs asynchrones
+en JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="d_async_errorhandling.html">d_async_errorhandling</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-sur-la-gestion-des-erreurs"
+        id="toc-exercices-sur-la-gestion-des-erreurs">Exercices sur la
+        gestion des erreurs</a>
+        <ul>
+        <li><a href="#exercice-1-erreur-simple"
+        id="toc-exercice-1-erreur-simple">Exercice 1 — Erreur
+        simple</a></li>
+        <li><a href="#exercice-2-division-par-zéro"
+        id="toc-exercice-2-division-par-zéro">Exercice 2 — Division par
+        zéro</a></li>
+        <li><a href="#exercice-3-nettoyage-garanti"
+        id="toc-exercice-3-nettoyage-garanti">Exercice 3 — Nettoyage
+        garanti</a></li>
+        <li><a href="#exercice-4-lecture-de-tableau"
+        id="toc-exercice-4-lecture-de-tableau">Exercice 4 — Lecture de
+        tableau</a></li>
+        <li><a href="#exercice-5-promesse-rejetée"
+        id="toc-exercice-5-promesse-rejetée">Exercice 5 — Promesse
+        rejetée</a></li>
+        <li><a href="#exercice-6-asyncawait"
+        id="toc-exercice-6-asyncawait">Exercice 6 — async/await</a></li>
+        <li><a href="#exercice-7-message-utilisateur"
+        id="toc-exercice-7-message-utilisateur">Exercice 7 — Message
+        utilisateur</a></li>
+        <li><a href="#exercice-8-centralisation"
+        id="toc-exercice-8-centralisation">Exercice 8 —
+        Centralisation</a></li>
+        <li><a href="#exercice-9-fallback"
+        id="toc-exercice-9-fallback">Exercice 9 — Fallback</a></li>
+        <li><a href="#exercice-10-projet-de-synthèse"
+        id="toc-exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+        synthèse</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS e_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices-sur-la-gestion-des-erreurs">Exercices sur la
+      gestion des erreurs</h1>
+      <p>Ces exercices permettent de mettre en application les notions
+      vues dans ce chapitre : interception d’erreurs synchrones,
+      exécution garantie avec <code>finally</code>, et gestion des
+      erreurs dans du code asynchrone avec promesses ou
+      <code>async/await</code>.</p>
+      <hr />
+      <h2 id="exercice-1-erreur-simple">Exercice 1 — Erreur simple</h2>
+      <p>Écris un code qui tente d’afficher une variable non définie
+      dans un bloc <code>try</code>. Intercepte l’erreur dans le
+      <code>catch</code> et affiche un message personnalisé.</p>
+      <hr />
+      <h2 id="exercice-2-division-par-zéro">Exercice 2 — Division par
+      zéro</h2>
+      <p>Crée une fonction <code>divide(a, b)</code> qui lève une erreur
+      si <code>b</code> vaut zéro. Utilise <code>throw</code> pour
+      générer l’erreur et <code>try...catch</code> pour la gérer
+      proprement.</p>
+      <hr />
+      <h2 id="exercice-3-nettoyage-garanti">Exercice 3 — Nettoyage
+      garanti</h2>
+      <p>Écris une fonction qui ouvre une ressource fictive (par exemple
+      affiche « Ressource ouverte ») puis lève une erreur volontaire.
+      Assure-toi que la ressource est toujours « fermée » grâce à un
+      bloc <code>finally</code>.</p>
+      <hr />
+      <h2 id="exercice-4-lecture-de-tableau">Exercice 4 — Lecture de
+      tableau</h2>
+      <p>Crée une fonction qui tente d’accéder à un élément d’un
+      tableau. Si l’indice est invalide (trop grand ou négatif), lève
+      une erreur et gère-la avec <code>try...catch</code>.</p>
+      <hr />
+      <h2 id="exercice-5-promesse-rejetée">Exercice 5 — Promesse
+      rejetée</h2>
+      <p>Écris une promesse qui se rejette avec une erreur après deux
+      secondes. Utilise <code>.catch()</code> pour intercepter et
+      afficher le message d’erreur.</p>
+      <hr />
+      <h2 id="exercice-6-asyncawait">Exercice 6 — async/await</h2>
+      <p>Écris une fonction <code>fetchData()</code> simulant une
+      requête asynchrone avec <code>setTimeout</code>. Si l’URL donnée
+      n’est pas <code>"ok"</code>, la fonction lève une erreur. Gère
+      l’erreur avec <code>try...catch</code> dans une fonction marquée
+      <code>async</code>.</p>
+      <hr />
+      <h2 id="exercice-7-message-utilisateur">Exercice 7 — Message
+      utilisateur</h2>
+      <p>Écris un code qui tente de convertir une chaîne JSON invalide
+      avec <code>JSON.parse</code>. Utilise <code>try...catch</code>
+      pour afficher un message clair destiné à l’utilisateur (« Le
+      format des données est incorrect »).</p>
+      <hr />
+      <h2 id="exercice-8-centralisation">Exercice 8 —
+      Centralisation</h2>
+      <p>Écris une fonction <code>handleError(error)</code> qui se
+      charge d’afficher toutes les erreurs de manière uniforme.
+      Utilise-la dans au moins deux blocs <code>catch</code>
+      différents.</p>
+      <hr />
+      <h2 id="exercice-9-fallback">Exercice 9 — Fallback</h2>
+      <p>Crée une fonction <code>getUserData()</code> qui simule une
+      requête serveur. En cas d’échec, elle doit renvoyer un objet par
+      défaut (par exemple <code>{ name: "Inconnu" }</code>). Utilise
+      <code>async/await</code> et <code>try...catch</code>.</p>
+      <hr />
+      <h2 id="exercice-10-projet-de-synthèse">Exercice 10 — Projet de
+      synthèse</h2>
+      <p>Construis un petit programme qui :<br />
+      1. lit un nombre fourni par l’utilisateur,<br />
+      2. tente de diviser 100 par ce nombre,<br />
+      3. gère le cas d’une saisie invalide ou d’un zéro avec
+      <code>throw</code> et <code>try...catch</code>,<br />
+      4. affiche toujours « Programme terminé » grâce à un
+      <code>finally</code>.</p>
+      <hr />
+      <p>⬅️ <a href="./d_async_errorhandling.html">Chapitre précédent :
+      La gestion des erreurs asynchrones</a></p>
+      <p>➡️ <a href="../13_modules/a_modules.html">Chapitre suivant :
+      …</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

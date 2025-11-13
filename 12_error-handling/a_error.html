@@ -1,0 +1,216 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  a_Error</title>
+        <meta name="description" content="Dans un programme, des erreurs
+surviennent inévitablement (fautes de code, saisies incorrectes, ou
+événements imprévisibles). Plutôt que de laisser le programme s’arrêter
+brutalement, il est possible de gérer ces erreurs pour assurer un
+fonctionnement plus robuste et offrir une meilleure expérience à
+l’utilisateur." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="b_try...-catch.html">b_try...-catch</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#la-gestion-des-erreurs"
+        id="toc-la-gestion-des-erreurs">La gestion des erreurs</a>
+        <ul>
+        <li><a href="#pourquoi-gérer-les-erreurs"
+        id="toc-pourquoi-gérer-les-erreurs">Pourquoi gérer les erreurs
+        ?</a></li>
+        <li><a href="#les-différents-types-derreurs"
+        id="toc-les-différents-types-derreurs">Les différents types
+        d’erreurs</a></li>
+        <li><a href="#exemples-dusage" id="toc-exemples-dusage">Exemples
+        d’usage</a></li>
+        <li><a href="#avantages-dune-bonne-gestion-des-erreurs"
+        id="toc-avantages-dune-bonne-gestion-des-erreurs">Avantages
+        d’une bonne gestion des erreurs</a></li>
+        <li><a href="#bonnes-pratiques" id="toc-bonnes-pratiques">Bonnes
+        pratiques</a></li>
+        <li><a href="#le-bloc-trycatch" id="toc-le-bloc-trycatch">Le
+        bloc try…catch</a></li>
+        <li><a href="#les-erreurs-asynchrones"
+        id="toc-les-erreurs-asynchrones">Les erreurs
+        asynchrones</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS a_Error</h1>
+      
+      
+      
+      <h1 id="la-gestion-des-erreurs">La gestion des erreurs</h1>
+      <p>Les erreurs font partie intégrante du développement logiciel.
+      Un bon programme n’est pas seulement celui qui fonctionne en
+      conditions idéales, mais aussi celui qui sait quoi faire quand les
+      choses tournent mal. En JavaScript, gérer les erreurs permet
+      d’éviter que tout le script ne s’arrête brutalement, et d’offrir
+      une réponse adaptée aux situations imprévues.</p>
+      <h2 id="pourquoi-gérer-les-erreurs">Pourquoi gérer les erreurs
+      ?</h2>
+      <p>Un programme qui gère correctement ses erreurs est plus solide
+      et plus agréable à utiliser. Cela permet d’abord de
+      <strong>reprendre en douceur</strong> lorsqu’un problème survient,
+      au lieu de planter sans prévenir. C’est aussi une question
+      d’<strong>expérience utilisateur</strong> : un message clair aide
+      l’utilisateur à comprendre ce qui se passe, au lieu d’afficher un
+      écran vide ou une erreur incompréhensible.</p>
+      <p>Pour le développeur, une gestion efficace facilite le
+      <strong>débogage</strong>. Les erreurs signalées au bon endroit
+      permettent de repérer rapidement la cause du problème. Enfin,
+      c’est une garantie de <strong>fiabilité</strong> : un code qui
+      gère ses erreurs réduit les risques de blocage complet et inspire
+      confiance.</p>
+      <h2 id="les-différents-types-derreurs">Les différents types
+      d’erreurs</h2>
+      <p>En JavaScript, on distingue plusieurs familles d’erreurs :</p>
+      <ul>
+      <li>Les <strong>erreurs de syntaxe</strong>, qui surviennent
+      lorsque le code est mal écrit et ne peut même pas être
+      exécuté.<br />
+      </li>
+      <li>Les <strong>erreurs d’exécution</strong>, qui apparaissent
+      pendant que le programme tourne, par exemple lorsqu’on essaie
+      d’utiliser une variable qui n’existe pas.<br />
+      </li>
+      <li>Les <strong>erreurs de logique</strong>, plus subtiles, quand
+      le code s’exécute sans bloquer mais ne produit pas le résultat
+      attendu.</li>
+      </ul>
+      <h2 id="exemples-dusage">Exemples d’usage</h2>
+      <p>La gestion des erreurs se rencontre dans de nombreuses
+      situations courantes : une requête réseau qui échoue, une saisie
+      utilisateur incorrecte, ou encore un problème rencontré dans une
+      bibliothèque externe. Dans tous ces cas, mieux vaut prévoir une
+      réaction adaptée qu’un arrêt brutal.</p>
+      <h2 id="avantages-dune-bonne-gestion-des-erreurs">Avantages d’une
+      bonne gestion des erreurs</h2>
+      <p>En résumé, gérer les erreurs correctement permet d’éviter
+      l’interruption totale du programme, de donner des informations
+      utiles pour comprendre le problème, et de maintenir une expérience
+      fluide pour l’utilisateur. Cela contribue directement à la qualité
+      et à la fiabilité du code.</p>
+      <h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+      <p>Quelques principes aident à tirer le meilleur de la gestion des
+      erreurs. Il est recommandé d’utiliser des types d’erreurs précis
+      quand c’est possible, de consigner les erreurs pour pouvoir les
+      analyser, de donner des messages clairs et compréhensibles aux
+      utilisateurs, et de traiter les erreurs au plus près de leur
+      origine pour limiter leur propagation.</p>
+      <h2 id="le-bloc-trycatch">Le bloc try…catch</h2>
+      <p>L’une des techniques les plus répandues consiste à entourer un
+      morceau de code d’un bloc <code>try...catch</code>. L’idée est
+      simple : on essaie d’exécuter du code dans la partie
+      <code>try</code>. Si tout se passe bien, on continue normalement.
+      Si une erreur survient, l’exécution est interrompue et on passe
+      dans le bloc <code>catch</code>, où l’on peut réagir sans que tout
+      le script s’arrête.</p>
+      <p>Ce mécanisme est détaillé dans les sections suivantes :</p>
+      <ul>
+      <li><a href="./b_try...-catch.html">try…catch</a><br />
+      </li>
+      <li><a
+      href="./c_try...catch...finally.html">try…catch…finally</a></li>
+      </ul>
+      <h2 id="les-erreurs-asynchrones">Les erreurs asynchrones</h2>
+      <p>Avec du code asynchrone, la situation se complique un peu. Les
+      erreurs ne se produisent pas forcément au moment où le code est
+      lancé, mais plus tard, par exemple lorsqu’une réponse arrive d’un
+      serveur. Dans ces cas, la gestion des erreurs doit être prévue
+      dans les rappels (<em>callbacks</em>), les promesses
+      (<em>promises</em>) ou via <code>async/await</code>. Ces
+      techniques sont expliquées en détail dans la suite du chapitre
+      :</p>
+      <ul>
+      <li><a href="./d_async_errorhandling.html">La gestion asynchrone
+      des erreurs</a></li>
+      </ul>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>La gestion des erreurs est indispensable pour rendre un
+      programme robuste et agréable à utiliser. Elle permet d’anticiper
+      les imprévus, d’éviter les blocages, d’aider au débogage et de
+      donner une meilleure expérience aux utilisateurs. En JavaScript,
+      le bloc <code>try...catch</code> constitue l’outil de base pour
+      intercepter et traiter ces erreurs, tandis que les opérations
+      asynchrones nécessitent des techniques adaptées comme les
+      promesses ou <code>async/await</code>.</p>
+      <hr />
+      <p>⬅️ <a href="../11_json/b_exercices.html">Chapitre précédent :
+      …</a></p>
+      <p>➡️ <a href="./b_try...-catch.html">Chapitre suivant :
+      try…catch</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

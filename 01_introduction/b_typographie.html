@@ -1,0 +1,293 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  b_Typographie</title>
+        <meta name="description" content="Comprendre l’importance de la
+typographie, des espaces et des conventions dans l’écriture du code
+JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="a_javascript.html">a_JavaScript</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#typographie-et-conventions"
+        id="toc-typographie-et-conventions">Typographie et
+        conventions</a>
+        <ul>
+        <li><a href="#lire-et-écrire-activement"
+        id="toc-lire-et-écrire-activement">Lire et écrire
+        activement</a></li>
+        <li><a href="#exemple" id="toc-exemple">Exemple</a></li>
+        <li><a href="#mémo-fonctions-dinteraction-en-javascript"
+        id="toc-mémo-fonctions-dinteraction-en-javascript">Mémo :
+        Fonctions d’interaction en JavaScript</a>
+        <ul>
+        <li><a href="#console.log"
+        id="toc-console.log"><code>console.log()</code></a></li>
+        <li><a href="#alert"
+        id="toc-alert"><code>alert()</code></a></li>
+        <li><a href="#prompt"
+        id="toc-prompt"><code>prompt()</code></a></li>
+        <li><a href="#confirm"
+        id="toc-confirm"><code>confirm()</code></a></li>
+        </ul></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS b_Typographie</h1>
+      
+      
+      
+      <h1 id="typographie-et-conventions">Typographie et
+      conventions</h1>
+      <p>Lorsque vous <strong>apprenez à programmer</strong>, il est
+      essentiel de développer une certaine rigueur dans l’écriture.
+      Comme pour un texte en français ou en anglais, la
+      <strong>typographie</strong> et les <strong>conventions
+      d’écriture</strong> jouent un rôle important dans la lisibilité du
+      code.</p>
+      <p>En JavaScript (comme dans la plupart des langages), les
+      <strong>espaces</strong>, les <strong>sauts de ligne</strong> et
+      l’<strong>indentation</strong> facilitent la lecture et la
+      compréhension.<br />
+      Un code bien structuré sera plus simple à corriger, à partager et
+      à améliorer.</p>
+      <h2 id="lire-et-écrire-activement">Lire et écrire activement</h2>
+      <p>Vous ne pouvez pas vous contenter de <strong>lire
+      rapidement</strong> les exemples présentés.<br />
+      Il est essentiel de pratiquer une <strong>lecture active</strong>
+      :</p>
+      <ol type="1">
+      <li><strong>Exécutez</strong> le code donné dans les
+      exemples.<br />
+      </li>
+      <li><strong>Modifiez-le</strong> pour voir comment il
+      réagit.<br />
+      </li>
+      <li><strong>Observez</strong> les résultats.</li>
+      </ol>
+      <p>C’est ainsi que vous développerez une véritable compréhension
+      du langage.</p>
+      <h2 id="exemple">Exemple</h2>
+      <p>Prenons un exemple simple :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Bonjour le monde !&quot;</span>)<span class="op">;</span></span></code></pre></div>
+      <p>Cela sera probablement votre premier programme en
+      <strong>JS</strong> (<strong>javascript</strong>), si vous avez
+      vos bases en <strong>HTML5</strong> vous savez déjà que vous
+      devrez intégrer ce <strong>script</strong> dans une page html. Le
+      mot-clé <code>console.log</code> permet d’<strong>afficher un
+      texte</strong> dans la console (vous pouvez ouvrir la console de
+      votre navigateur à l’aide de la touche <code>F12</code>). Ici, le
+      texte <code>"Bonjour le monde !"</code> sera affiché à
+      l’écran.</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Résultat attendu :</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Bonjour le monde <span class="op">!</span></span></code></pre></div>
+      <h2 id="mémo-fonctions-dinteraction-en-javascript">Mémo :
+      Fonctions d’interaction en JavaScript</h2>
+      <p>Pour vos premiers programmes, vous utiliserez souvent ces
+      fonctions simples qui permettent <strong>d’afficher des
+      informations</strong> ou <strong>d’interagir avec
+      l’utilisateur</strong>.</p>
+      <h3 id="console.log"><code>console.log()</code></h3>
+      <p>Affiche un message dans la console du navigateur (accessible
+      avec <code>F12</code>).<br />
+      C’est l’outil principal pour tester et déboguer vos
+      programmes.</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Bonjour !&quot;</span>)<span class="op">;</span></span></code></pre></div>
+      <p>Résultat (dans la console) :</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Bonjour <span class="op">!</span></span></code></pre></div>
+      <h3 id="alert"><code>alert()</code></h3>
+      <p>Affiche une <strong>boîte de dialogue</strong> avec un message.
+      L’utilisateur doit cliquer sur <strong>OK</strong> pour
+      continuer.</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">alert</span>(<span class="st">&quot;Bienvenue dans mon programme !&quot;</span>)<span class="op">;</span></span></code></pre></div>
+      <h3 id="prompt"><code>prompt()</code></h3>
+      <p>Affiche une boîte de dialogue avec un champ de saisie. Permet
+      de <strong>demander une valeur</strong> à l’utilisateur. La valeur
+      saisie est retournée sous forme de <strong>chaîne de
+      caractères</strong>.</p>
+      <div class="sourceCode" id="cb6"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> nom <span class="op">=</span> <span class="fu">prompt</span>(<span class="st">&quot;Quel est ton nom ?&quot;</span>)<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&quot;Bonjour &quot;</span> <span class="op">+</span> nom)<span class="op">;</span></span></code></pre></div>
+      <h3 id="confirm"><code>confirm()</code></h3>
+      <p>Affiche une boîte de dialogue avec deux choix :
+      <strong>OK</strong> et <strong>Annuler</strong>. Renvoie
+      <code>true</code> si l’utilisateur clique sur OK,
+      <code>false</code> sinon.</p>
+      <div class="sourceCode" id="cb7"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> reponse <span class="op">=</span> <span class="fu">confirm</span>(<span class="st">&quot;Veux-tu continuer ?&quot;</span>)<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(reponse)<span class="op">;</span></span></code></pre></div>
+      <ul>
+      <li><hr /></li>
+      </ul>
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Un langage de programmation n’est pas seulement fait pour être
+      lu, mais surtout pour être <strong>pratiqué</strong>.</p>
+      <ul>
+      <li>La <strong>typographie</strong> et les
+      <strong>conventions</strong> rendent le code lisible et
+      compréhensible.<br />
+      </li>
+      <li>Testez systématiquement les <strong>exemples de code</strong>
+      que vous rencontrez.</li>
+      <li>Écrivez toujours votre <strong>propre version</strong> du code
+      pour vous l’approprier.</li>
+      <li><code>console.log()</code> → écrire dans la console
+      (débogage).</li>
+      <li><code>alert()</code> → afficher un message bloquant.</li>
+      <li><code>prompt()</code> → demander une saisie à
+      l’utilisateur.</li>
+      <li><code>confirm()</code> → poser une question fermée
+      (OK/Annuler).</li>
+      </ul>
+      <p>Ces fonctions sont très pratiques pour les <strong>premiers
+      pas</strong> en JavaScript, mais dans un projet sérieux, elles
+      sont souvent remplacées par des interactions plus avancées
+      (formulaires, DOM, etc.).</p>
+      <hr />
+      <p>⬅️ <a href="./a_javascript.html">Chapitre précédent :
+      JavaScript</a></p>
+      <p>➡️ <a href="../02_basics/a_commentaires.html">Chapitre suivant
+      : Les Commentaires</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

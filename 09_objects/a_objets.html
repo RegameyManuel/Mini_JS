@@ -1,0 +1,217 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  a_Objets</title>
+        <meta name="description" content="Un objet est un type de
+données composé qui permet de stocker et d’organiser plusieurs valeurs
+sous forme de paires clé-valeur. Il s’agit d’une structure de données
+fondamentale en JavaScript, largement utilisée pour représenter des
+données complexes et des entités structurées." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="b_properties.html">b_properties</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#les-objets" id="toc-les-objets">Les objets</a>
+        <ul>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS a_Objets</h1>
+      
+      
+      
+      <h1 id="les-objets">Les objets</h1>
+      <p>En JavaScript, un objet est une entité qui regroupe des
+      informations sous la forme de paires appelées « propriétés ».
+      Chaque propriété associe un nom (ou clé) à une valeur. C’est une
+      manière de décrire et d’organiser des données de façon structurée,
+      bien plus riche que les simples types primitifs tels que les
+      nombres, les chaînes de caractères ou les valeurs booléennes.</p>
+      <p>Une différence importante entre les objets et les types
+      primitifs réside dans leur comportement vis-à-vis des
+      modifications. Les valeurs primitives, comme un nombre ou une
+      chaîne, sont immuables : chaque fois qu’on leur attribue une
+      nouvelle valeur, une nouvelle référence est créée. Les objets, au
+      contraire, sont mutables : lorsqu’on modifie l’une de leurs
+      propriétés, c’est toujours le même objet qui est concerné, seule
+      son « interne » évolue.</p>
+      <p>La création d’objets en JavaScript peut se faire de plusieurs
+      manières. La plus directe consiste à utiliser la notation
+      littérale, c’est-à-dire simplement une paire d’accolades. Par
+      exemple :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> personne <span class="op">=</span> {}<span class="op">;</span></span></code></pre></div>
+      <p>Ici, on obtient un objet vide prêt à accueillir des propriétés.
+      Cette méthode est considérée comme la plus simple et la plus
+      courante.</p>
+      <p>Il est également possible de créer un objet avec le
+      constructeur intégré <code>Object</code>. Cela revient à écrire
+      :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> personne <span class="op">=</span> <span class="kw">new</span> <span class="bu">Object</span>()<span class="op">;</span></span></code></pre></div>
+      <p>Cette syntaxe est moins utilisée dans la pratique, mais elle
+      illustre bien le fait qu’en JavaScript les objets reposent sur une
+      logique orientée objet.</p>
+      <p>Enfin, JavaScript propose la méthode
+      <code>Object.create</code>. Elle permet de créer un nouvel objet
+      en indiquant explicitement quel prototype il doit utiliser comme
+      base :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> personne <span class="op">=</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">create</span>(proto)<span class="op">;</span></span></code></pre></div>
+      <p>Avec cette approche, l’objet nouvellement créé hérite
+      directement des propriétés définies dans l’objet prototype passé
+      en paramètre. Cela ouvre la voie à une gestion fine de l’héritage
+      par prototype, concept essentiel du langage.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les objets sont au cœur de JavaScript. Ils permettent de
+      regrouper des informations et de représenter des entités complexes
+      à travers des propriétés. Contrairement aux valeurs primitives qui
+      sont immuables, les objets sont mutables et se manipulent toujours
+      par référence. Leur création peut se faire de manière littérale,
+      via le constructeur <code>Object</code>, ou encore par la méthode
+      <code>Object.create</code> qui met en avant le rôle des
+      prototypes.</p>
+      <hr />
+      <p>⬅️ <a href="../08_autre_section/derniere_page.html">Chapitre
+      précédent : …</a></p>
+      <p>➡️ <a href="./b_properties.html">Chapitre suivant : Les
+      propriétés</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

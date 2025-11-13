@@ -1,0 +1,264 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  e_iterations</title>
+        <meta name="description" content="Les tableaux en JavaScript
+proposent des méthodes d’itération intégrées qui facilitent le parcours
+et la transformation des données. Ces méthodes, plus lisibles et
+expressives que les boucles classiques, sont devenues incontournables
+dans la pratique moderne du langage." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="d_dowhile.html">d_dowhile</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="f_controls.html">f_controls</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#itérations-modernes-sur-les-tableaux"
+        id="toc-itérations-modernes-sur-les-tableaux">Itérations
+        modernes sur les tableaux</a>
+        <ul>
+        <li><a href="#foreach" id="toc-foreach">forEach()</a></li>
+        <li><a href="#map" id="toc-map">map()</a></li>
+        <li><a href="#filter" id="toc-filter">filter()</a></li>
+        <li><a href="#reduce" id="toc-reduce">reduce()</a></li>
+        <li><a href="#some-et-every" id="toc-some-et-every">some() et
+        every()</a></li>
+        <li><a href="#find-et-findindex"
+        id="toc-find-et-findindex">find() et findIndex()</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS e_iterations</h1>
+      
+      
+      
+      <h1 id="itérations-modernes-sur-les-tableaux">Itérations modernes
+      sur les tableaux</h1>
+      <p>Si les boucles traditionnelles (<code>for</code>,
+      <code>while</code>, <code>do...while</code>) restent des outils
+      essentiels, JavaScript met également à disposition des méthodes
+      propres aux tableaux qui permettent d’itérer et de manipuler les
+      données de façon plus concise et expressive. Ces méthodes
+      appartiennent toutes à l’objet <strong>Array</strong> et sont
+      désormais largement privilégiées dans le code moderne.</p>
+      <h2 id="foreach">forEach()</h2>
+      <p><code>forEach()</code> exécute une fonction donnée pour
+      <strong>chaque élément du tableau</strong>.<br />
+      Elle ne retourne pas de valeur mais permet d’effectuer facilement
+      des actions comme l’affichage ou la modification de données.</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> fruits <span class="op">=</span> [<span class="st">&quot;pomme&quot;</span><span class="op">,</span> <span class="st">&quot;banane&quot;</span><span class="op">,</span> <span class="st">&quot;cerise&quot;</span>]<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>fruits<span class="op">.</span><span class="fu">forEach</span>(<span class="kw">function</span>(fruit) {</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(fruit)<span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>})<span class="op">;</span></span></code></pre></div>
+      <p>Résultat :</p>
+      <pre><code>pomme
+banane
+cerise</code></pre>
+      <h2 id="map">map()</h2>
+      <p><code>map()</code> construit un <strong>nouveau
+      tableau</strong> contenant le résultat d’une fonction appliquée à
+      chaque élément.</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> doubles <span class="op">=</span> nombres<span class="op">.</span><span class="fu">map</span>(x <span class="kw">=&gt;</span> x <span class="op">*</span> <span class="dv">2</span>)<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(doubles)<span class="op">;</span> <span class="co">// [2, 4, 6, 8]</span></span></code></pre></div>
+      <h2 id="filter">filter()</h2>
+      <p><code>filter()</code> retourne un nouveau tableau constitué
+      uniquement des éléments qui satisfont une condition donnée.</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">10</span><span class="op">,</span> <span class="dv">15</span><span class="op">,</span> <span class="dv">20</span><span class="op">,</span> <span class="dv">25</span><span class="op">,</span> <span class="dv">30</span>]<span class="op">;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> pairs <span class="op">=</span> nombres<span class="op">.</span><span class="fu">filter</span>(x <span class="kw">=&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(pairs)<span class="op">;</span> <span class="co">// [10, 20, 30]</span></span></code></pre></div>
+      <h2 id="reduce">reduce()</h2>
+      <p><code>reduce()</code> applique une fonction dite
+      <strong>accumulateur</strong> afin de combiner les éléments du
+      tableau en une seule valeur.</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span> <span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> somme <span class="op">=</span> nombres<span class="op">.</span><span class="fu">reduce</span>((acc<span class="op">,</span> x) <span class="kw">=&gt;</span> acc <span class="op">+</span> x<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(somme)<span class="op">;</span> <span class="co">// 10</span></span></code></pre></div>
+      <h2 id="some-et-every">some() et every()</h2>
+      <p>Ces deux méthodes servent à tester les éléments d’un tableau
+      :</p>
+      <ul>
+      <li><code>some()</code> retourne <code>true</code> si <strong>au
+      moins un élément</strong> satisfait la condition.</li>
+      <li><code>every()</code> retourne <code>true</code> si
+      <strong>tous les éléments</strong> satisfont la condition.</li>
+      </ul>
+      <div class="sourceCode" id="cb6"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">6</span>]<span class="op">;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nombres<span class="op">.</span><span class="fu">some</span>(x <span class="kw">=&gt;</span> x <span class="op">&gt;</span> <span class="dv">5</span>))<span class="op">;</span>   <span class="co">// true</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nombres<span class="op">.</span><span class="fu">every</span>(x <span class="kw">=&gt;</span> x <span class="op">%</span> <span class="dv">2</span> <span class="op">===</span> <span class="dv">0</span>))<span class="op">;</span> <span class="co">// true</span></span></code></pre></div>
+      <h2 id="find-et-findindex">find() et findIndex()</h2>
+      <p>Enfin, deux méthodes permettent de rechercher un élément précis
+      :</p>
+      <ul>
+      <li><code>find()</code> retourne le <strong>premier
+      élément</strong> qui correspond à la condition.</li>
+      <li><code>findIndex()</code> retourne l’<strong>index</strong> de
+      ce premier élément.</li>
+      </ul>
+      <div class="sourceCode" id="cb7"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> nombres <span class="op">=</span> [<span class="dv">5</span><span class="op">,</span> <span class="dv">12</span><span class="op">,</span> <span class="dv">8</span><span class="op">,</span> <span class="dv">130</span><span class="op">,</span> <span class="dv">44</span>]<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nombres<span class="op">.</span><span class="fu">find</span>(x <span class="kw">=&gt;</span> x <span class="op">&gt;</span> <span class="dv">10</span>))<span class="op">;</span>     <span class="co">// 12</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(nombres<span class="op">.</span><span class="fu">findIndex</span>(x <span class="kw">=&gt;</span> x <span class="op">&gt;</span> <span class="dv">10</span>))<span class="op">;</span> <span class="co">// 1</span></span></code></pre></div>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les méthodes modernes d’itération comme <code>forEach</code>,
+      <code>map</code>, <code>filter</code>, <code>reduce</code>,
+      <code>some</code>, <code>every</code>, <code>find</code> ou
+      <code>findIndex</code> permettent d’écrire du code <strong>plus
+      clair, plus concis et plus expressif</strong> que les boucles
+      classiques. Elles s’imposent aujourd’hui comme des outils
+      incontournables pour manipuler efficacement les tableaux en
+      JavaScript.</p>
+      <hr />
+      <p>⬅️ <a href="./d_dowhile.html">Chapitre précédent : La Boucle
+      Do…While</a></p>
+      <p>➡️ <a href="./f_controleflux.html">Chapitre suivant : Contrôle
+      du Flux</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

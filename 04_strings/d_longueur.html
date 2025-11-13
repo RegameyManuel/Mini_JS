@@ -1,0 +1,221 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  d_Longueur</title>
+        <meta name="description" content="Comprendre comment obtenir la
+longueur d’une chaîne de caractères en JavaScript grâce à la propriété
+length." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="c_remplacement.html">c_Remplacement</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="e_concatenation.html">e_Concatenation</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#longueur-dune-chaîne"
+        id="toc-longueur-dune-chaîne">Longueur d’une chaîne</a>
+        <ul>
+        <li><a href="#exemple-simple" id="toc-exemple-simple">Exemple
+        simple</a></li>
+        <li><a href="#les-espaces-comptent-aussi"
+        id="toc-les-espaces-comptent-aussi">Les espaces comptent
+        aussi</a></li>
+        <li><a href="#exercice" id="toc-exercice">Exercice</a>
+        <ul>
+        <li><a href="#solution-attendue"
+        id="toc-solution-attendue">Solution attendue</a></li>
+        </ul></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS d_Longueur</h1>
+      
+      
+      
+      <h1 id="longueur-dune-chaîne">Longueur d’une chaîne</h1>
+      <p>En JavaScript, chaque chaîne de caractères possède une
+      propriété intégrée appelée
+      <strong><code>length</code></strong>.<br />
+      Cette propriété retourne le nombre total de caractères contenus
+      dans la chaîne, y compris les espaces et les symboles.</p>
+      <h2 id="exemple-simple">Exemple simple</h2>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> text <span class="op">=</span> <span class="st">&quot;Bonjour&quot;</span><span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(text<span class="op">.</span><span class="at">length</span>)<span class="op">;</span> <span class="co">// 7</span></span></code></pre></div>
+      <p>Dans cet exemple, le résultat est <code>7</code> car le mot
+      <code>"Bonjour"</code> contient exactement 7 caractères.</p>
+      <h2 id="les-espaces-comptent-aussi">Les espaces comptent
+      aussi</h2>
+      <p>La propriété <code>length</code> prend en compte tous les
+      caractères, y compris les espaces :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> phrase <span class="op">=</span> <span class="st">&quot;Hello World&quot;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(phrase<span class="op">.</span><span class="at">length</span>)<span class="op">;</span> <span class="co">// 11</span></span></code></pre></div>
+      <p>Le résultat est <code>11</code> car <code>"Hello World"</code>
+      contient 10 lettres + 1 espace.</p>
+      <h2 id="exercice">Exercice</h2>
+      <ol type="1">
+      <li>Déclarez une variable <code>message</code> contenant la valeur
+      <code>"JavaScript"</code>.</li>
+      <li>Utilisez la propriété <code>length</code> pour afficher le
+      nombre de caractères.</li>
+      <li>Testez ensuite avec la chaîne <code>"Hello World!"</code> et
+      observez la différence.</li>
+      </ol>
+      <h3 id="solution-attendue">Solution attendue</h3>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> message <span class="op">=</span> <span class="st">&quot;JavaScript&quot;</span><span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(message<span class="op">.</span><span class="at">length</span>)<span class="op">;</span> <span class="co">// 10</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">let</span> otherMessage <span class="op">=</span> <span class="st">&quot;Hello World!&quot;</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(otherMessage<span class="op">.</span><span class="at">length</span>)<span class="op">;</span> <span class="co">// 12</span></span></code></pre></div>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>La propriété <code>length</code> retourne le nombre de
+      caractères d’une chaîne.</li>
+      <li>Elle inclut les <strong>espaces</strong>, les
+      <strong>caractères spéciaux</strong> et la
+      <strong>ponctuation</strong>.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="./c_remplacement.html">Chapitre précédent :
+      Remplacement de chaînes</a></p>
+      <p>➡️ <a href="./e_concatenation.html">Chapitre suivant :
+      Concaténation de chaînes</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

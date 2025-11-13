@@ -1,0 +1,207 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  c_memo</title>
+        <meta name="description" content="Fiche de révision rapide des
+principales méthodes de tableaux en JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="b_methodes.html">b_methodes</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="d_exercices.html">d_Exercices</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#mémo-méthodes-des-tableaux"
+        id="toc-mémo-méthodes-des-tableaux">Mémo – Méthodes des
+        tableaux</a>
+        <ul>
+        <li><a href="#ajouter-supprimer"
+        id="toc-ajouter-supprimer">Ajouter / Supprimer</a></li>
+        <li><a href="#fusion-et-conversion"
+        id="toc-fusion-et-conversion">Fusion et conversion</a></li>
+        <li><a href="#parcours" id="toc-parcours">Parcours</a></li>
+        <li><a href="#recherche" id="toc-recherche">Recherche</a></li>
+        <li><a href="#réduction" id="toc-réduction">Réduction</a></li>
+        <li><a href="#tri-et-ordre" id="toc-tri-et-ordre">Tri et
+        ordre</a></li>
+        <li><a href="#autres" id="toc-autres">Autres</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS c_memo</h1>
+      
+      
+      
+      <h1 id="mémo-méthodes-des-tableaux">Mémo – Méthodes des
+      tableaux</h1>
+      <h2 id="ajouter-supprimer">Ajouter / Supprimer</h2>
+      <ul>
+      <li><code>push(x)</code> → ajoute à la fin<br />
+      </li>
+      <li><code>pop()</code> → retire le dernier<br />
+      </li>
+      <li><code>unshift(x)</code> → ajoute au début<br />
+      </li>
+      <li><code>shift()</code> → retire le premier<br />
+      </li>
+      <li><code>splice(start, delete, ...items)</code> →
+      ajoute/supprime/remplace (modifie le tableau)<br />
+      </li>
+      <li><code>slice(start, end)</code> → copie une partie (sans
+      modifier)</li>
+      </ul>
+      <h2 id="fusion-et-conversion">Fusion et conversion</h2>
+      <ul>
+      <li><code>concat(arr)</code> → fusionne<br />
+      </li>
+      <li><code>join(sep)</code> → chaîne avec séparateur<br />
+      </li>
+      <li><code>toString()</code> → convertit en chaîne</li>
+      </ul>
+      <h2 id="parcours">Parcours</h2>
+      <ul>
+      <li><code>forEach(fn)</code> → exécute une fonction (ne renvoie
+      rien)<br />
+      </li>
+      <li><code>map(fn)</code> → crée un nouveau tableau
+      transformé<br />
+      </li>
+      <li><code>filter(fn)</code> → garde les éléments qui respectent la
+      condition</li>
+      </ul>
+      <h2 id="recherche">Recherche</h2>
+      <ul>
+      <li><code>find(fn)</code> → premier élément qui correspond<br />
+      </li>
+      <li><code>findIndex(fn)</code> → son index<br />
+      </li>
+      <li><code>includes(val)</code> → contient la valeur ?<br />
+      </li>
+      <li><code>indexOf(val)</code> / <code>lastIndexOf(val)</code> →
+      position</li>
+      </ul>
+      <h2 id="réduction">Réduction</h2>
+      <ul>
+      <li><code>reduce(fn, init)</code> → réduit à une valeur (de gauche
+      à droite)<br />
+      </li>
+      <li><code>reduceRight(fn, init)</code> → réduit de droite à
+      gauche</li>
+      </ul>
+      <h2 id="tri-et-ordre">Tri et ordre</h2>
+      <ul>
+      <li><code>sort(fn)</code> → trie (modifie le tableau)<br />
+      </li>
+      <li><code>reverse()</code> → inverse (modifie le tableau)</li>
+      </ul>
+      <h2 id="autres">Autres</h2>
+      <ul>
+      <li><code>length</code> → taille du tableau<br />
+      </li>
+      <li><code>flat(depth)</code> → aplatit<br />
+      </li>
+      <li><code>flatMap(fn)</code> → map + flat(1)<br />
+      </li>
+      <li><code>fill(val, start, end)</code> → remplit avec une
+      valeur<br />
+      </li>
+      <li><code>copyWithin(target, start, end)</code> → copie une partie
+      à un autre endroit<br />
+      </li>
+      <li><code>keys()</code> / <code>values()</code> /
+      <code>entries()</code> → itérateurs</li>
+      </ul>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>Certaines méthodes <strong>modifient le tableau</strong>
+      (<code>push</code>, <code>pop</code>, <code>splice</code>,
+      <code>sort</code>, <code>reverse</code>).<br />
+      </li>
+      <li>D’autres <strong>retournent un nouveau tableau</strong>
+      (<code>slice</code>, <code>map</code>, <code>filter</code>,
+      <code>concat</code>).<br />
+      </li>
+      <li><code>reduce</code> et <code>reduceRight</code> permettent de
+      <strong>combiner</strong> tous les éléments en une seule
+      valeur.<br />
+      </li>
+      <li><code>forEach</code> exécute une fonction, mais ne crée pas de
+      tableau.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="./b_methodes.html">Chapitre précédent : Méthodes
+      des tableaux</a></p>
+      <p>➡️ <a href="./d_exercices.html">Chapitre suivant :
+      Exercices</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

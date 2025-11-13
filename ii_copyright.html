@@ -1,0 +1,116 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  II_Copyright</title>
+      
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="assets/style.css" />
+  
+    
+    <script src="assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="iii_preface.html">III_Preface</a>
+            <a class="nav-home" href="index.html">Accueil</a>
+            <a class="nav-next" href="iv_references.html">IV_References</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#copyright" id="toc-copyright">Copyright</a>
+        <ul>
+        <li><a href="#modifications-apportées-par-manuel-regamey-2025"
+        id="toc-modifications-apportées-par-manuel-regamey-2025">Modifications
+        apportées par Manuel Regamey (2025)</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS II_Copyright</h1>
+      
+      
+      
+      <h1 id="copyright">Copyright</h1>
+      <p>Apprendre JavaScript pour les débutants<br />
+      Première édition</p>
+      <p>Copyright © 2023 Suman Kunwar<br />
+      Licensed under the Apache License, Version 2.0<br />
+      (http://www.apache.org/licenses/LICENSE-2.0)</p>
+      <p>Basé sur le travail de <a
+      href="https://javascript.sumankunwar.com.np/">javascript.sumankunwar.com.np</a>.<br />
+      ASIN: B0C53J11V7</p>
+      <hr />
+      <h2
+      id="modifications-apportées-par-manuel-regamey-2025">Modifications
+      apportées par Manuel Regamey (2025)</h2>
+      <ul>
+      <li>Traduction en français<br />
+      </li>
+      <li>Ajouts de chapitres<br />
+      </li>
+      <li>Intégration au format pédagogique pour des formations
+      professionnelles</li>
+      </ul>
+      <p>Ce projet reste distribué sous licence Apache 2.0.</p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

@@ -1,0 +1,274 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  a_modules</title>
+        <meta name="description" content="Les modules permettent
+d’organiser le code en parties séparées, réutilisables et faciles à
+maintenir. Ils introduisent les directives <code>import</code> et
+<code>export</code> pour partager ou utiliser des fonctionnalités entre
+fichiers." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    <style type="text/css">
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-home" href="../index.html">Accueil</a>
+            <a class="nav-next" href="b_exercices.html">b_Exercices</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#modules" id="toc-modules">Modules</a>
+        <ul>
+        <li><a href="#exporter-et-importer-des-fonctions"
+        id="toc-exporter-et-importer-des-fonctions">Exporter et importer
+        des fonctions</a></li>
+        <li><a href="#export-nommé-et-export-par-défaut"
+        id="toc-export-nommé-et-export-par-défaut">Export nommé et
+        export par défaut</a></li>
+        <li><a href="#attention-aux-dépendances-circulaires"
+        id="toc-attention-aux-dépendances-circulaires">Attention aux
+        dépendances circulaires</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS a_modules</h1>
+      
+      
+      
+      <h1 id="modules">Modules</h1>
+      <p>Lorsqu’une application grandit, le code source a tendance à
+      devenir de plus en plus complexe et difficile à maintenir. Si l’on
+      regroupe toutes les fonctionnalités dans un seul fichier, il
+      devient vite pénible de s’y retrouver, et les risques d’erreurs ou
+      de comportements inattendus augmentent. Pour éviter cela,
+      JavaScript propose un mécanisme de <strong>modules</strong>.</p>
+      <p>Un module est un fichier qui encapsule une partie du code : il
+      déclare ce qu’il rend disponible aux autres fichiers et peut
+      lui-même importer des fonctionnalités définies ailleurs. On peut
+      ainsi diviser une application en morceaux logiques, faciles à
+      comprendre et à réutiliser.</p>
+      <p>Historiquement, plusieurs systèmes de modules ont vu le jour
+      :<br />
+      - <strong>AMD</strong> (Asynchronous Module Definition), utilisé
+      notamment par <em>require.js</em>.<br />
+      - <strong>CommonJS</strong>, adopté par Node.js.<br />
+      - <strong>UMD</strong> (Universal Module Definition), qui cherche
+      à être compatible avec les deux précédents.</p>
+      <p>Aujourd’hui, la norme moderne repose sur deux mots-clés :
+      <code>export</code> et <code>import</code>.</p>
+      <h2 id="exporter-et-importer-des-fonctions">Exporter et importer
+      des fonctions</h2>
+      <p>Un module peut désigner certaines de ses fonctions ou variables
+      comme accessibles depuis l’extérieur grâce à <code>export</code>.
+      Un autre fichier peut ensuite les utiliser en les important avec
+      <code>import</code>.</p>
+      <p>Prenons un exemple simple. On crée un fichier
+      <code>sayHi.js</code> qui exporte une fonction :</p>
+      <div class="sourceCode" id="cb1"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 📁 sayHi.js</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> sayHi <span class="op">=</span> (user) <span class="kw">=&gt;</span> {</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">alert</span>(<span class="vs">`Bonjour, </span><span class="sc">${</span>user<span class="sc">}</span><span class="vs">!`</span>)<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span></code></pre></div>
+      <p>Dans un autre fichier, <code>main.js</code>, on peut importer
+      cette fonction et l’utiliser :</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 📁 main.js</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { sayHi } <span class="im">from</span> <span class="st">&quot;./sayHi.js&quot;</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sayHi</span>(<span class="st">&quot;Kelvin&quot;</span>)<span class="op">;</span> <span class="co">// Bonjour, Kelvin!</span></span></code></pre></div>
+      <p>Ici, le fichier <code>sayHi.js</code> déclare ce qu’il rend
+      disponible, et <code>main.js</code> choisit ce qu’il souhaite
+      importer.</p>
+      <h2 id="export-nommé-et-export-par-défaut">Export nommé et export
+      par défaut</h2>
+      <p>Il existe deux façons d’exporter : <strong>nommée</strong> et
+      <strong>par défaut</strong>.</p>
+      <p>Un export nommé permet d’indiquer précisément quelles
+      constantes ou fonctions doivent être accessibles. On peut le faire
+      directement à la déclaration ou à la fin du fichier :</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 📁 person.js</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> name <span class="op">=</span> <span class="st">&quot;Kelvin&quot;</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="kw">const</span> age <span class="op">=</span> <span class="dv">30</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">// ou bien</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> name <span class="op">=</span> <span class="st">&quot;Kelvin&quot;</span><span class="op">;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> age <span class="op">=</span> <span class="dv">30</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> { name<span class="op">,</span> age }<span class="op">;</span></span></code></pre></div>
+      <p>Un export par défaut, en revanche, signale qu’un module fournit
+      une seule valeur principale. Par exemple :</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 📁 message.js</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> message <span class="op">=</span> (name<span class="op">,</span> age) <span class="kw">=&gt;</span> {</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs"> is </span><span class="sc">${</span>age<span class="sc">}</span><span class="vs"> years old.`</span><span class="op">;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>}<span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">export</span> <span class="im">default</span> message<span class="op">;</span></span></code></pre></div>
+      <p>Lorsqu’on importe, la syntaxe change légèrement :</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode javascript"><code class="sourceCode javascript"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { name<span class="op">,</span> age } <span class="im">from</span> <span class="st">&quot;./person.js&quot;</span><span class="op">;</span> <span class="co">// import d’exports nommés</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> message <span class="im">from</span> <span class="st">&quot;./message.js&quot;</span><span class="op">;</span>      <span class="co">// import d’un export par défaut</span></span></code></pre></div>
+      <p>Il n’est pas possible d’avoir plusieurs exports par défaut dans
+      un même fichier, mais on peut combiner un export par défaut et des
+      exports nommés.</p>
+      <h2 id="attention-aux-dépendances-circulaires">Attention aux
+      dépendances circulaires</h2>
+      <p>Un point de vigilance concerne la <strong>dépendance
+      circulaire</strong> : c’est une situation où un module A dépend
+      d’un module B, alors que B dépend lui-même de A (directement ou
+      indirectement). Ces boucles rendent le code difficile à exécuter
+      correctement et doivent être évitées par une bonne conception.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <p>Les modules sont une manière d’organiser son code en fichiers
+      autonomes, réutilisables et mieux structurés.</p>
+      <ul>
+      <li><code>export</code> permet de désigner ce qui est rendu public
+      par un module.</li>
+      <li><code>import</code> permet de réutiliser ce qui a été exporté
+      ailleurs.</li>
+      <li>Il existe deux formes d’export : nommé (plusieurs par fichier)
+      et par défaut (un seul par fichier).</li>
+      <li>Une bonne organisation modulaire réduit la complexité et
+      facilite la maintenance.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="../12_autre_chapitre/l_exercices.html">Chapitre
+      précédent : …</a></p>
+      <p>➡️ <a href="./b_autre_section.html">Chapitre suivant :
+      …</a></p>
+      <pre><code>
+---
+
+Veux-tu que je prépare aussi un `b_Exercices.md` pour ce chapitre **Modules**, avec des cas pratiques (création de petits modules, export nommé vs défaut, éviter les circulaires) ?</code></pre>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>

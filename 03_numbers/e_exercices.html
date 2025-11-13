@@ -1,0 +1,212 @@
+<!--
+SPDX-License-Identifier: GPL-3.0-or-later
+Copyright (C) 2025 Manuel Regamey
+This file is part of SluInk. See the LICENSE file or <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html lang="fr"  data-theme="">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mini-JS  e_Exercices</title>
+        <meta name="description" content="Exercices progressifs pour
+pratiquer la manipulation des nombres, l’utilisation de l’objet Math et
+les opérateurs arithmétiques en JavaScript." />
+  <!-- Boot-script: applique le thème choisi avant de charger la CSS -->
+  <script>
+    (function () {
+      var key = 'SluInk-theme';
+      try {
+        var saved = localStorage.getItem(key);
+        var t = (saved === 'light' || saved === 'dark')
+          ? saved
+          : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+        document.documentElement.style.colorScheme = t; // scrollbars/UI natifs
+      } catch (e) { }
+    })();
+  </script>
+
+    <link rel="stylesheet" href="../assets/style.css" />
+  
+    
+    <script src="../assets/script.js" defer></script>
+  </head>
+
+<body>
+
+  <header class="site">
+    <div class="brand">
+      <a href="../index.html">
+        Mini-JS
+      </a>
+    </div>
+
+    <nav class="topnav">
+            <a class="nav-prev" href="d_avances.html">d_Avances</a>
+            <a class="nav-home" href="../index.html">Accueil</a>
+          </nav>
+
+    <div class="theme-buttons" role="group" aria-label="Thème" style="display:flex; gap:.5rem;">
+      <button class="button icon-btn" data-theme-set="light" aria-label="Clair" title="Clair">
+        <img src="../assets/sun-regular-full.svg" alt="sun" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="dark" aria-label="Sombre" title="Sombre">
+        <img src="../assets/moon-regular-full.svg" alt="moon" width="20" height="20" />
+      </button>
+      <button class="button icon-btn" data-theme-set="academic" aria-label="Academic" title="Academic">
+        <img src="../assets/file-regular-full.svg" alt="file" width="20" height="20" />
+      </button>
+    </div>
+
+
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+            <nav aria-label="Sommaire">
+        <ul>
+        <li><a href="#exercices-récapitulatifs"
+        id="toc-exercices-récapitulatifs">Exercices récapitulatifs</a>
+        <ul>
+        <li><a href="#exercice-1---les-nombres"
+        id="toc-exercice-1---les-nombres">Exercice 1 - Les
+        nombres</a></li>
+        <li><a href="#exercice-2---lobjet-math"
+        id="toc-exercice-2---lobjet-math">Exercice 2 - L’objet
+        Math</a></li>
+        <li><a href="#exercice-3---opérateurs-de-base"
+        id="toc-exercice-3---opérateurs-de-base">Exercice 3 - Opérateurs
+        de base</a></li>
+        <li><a href="#exercice-4---opérateurs-avancés"
+        id="toc-exercice-4---opérateurs-avancés">Exercice 4 - Opérateurs
+        avancés</a></li>
+        <li><a href="#exercice-5---mini-problème-global"
+        id="toc-exercice-5---mini-problème-global">Exercice 5 -
+        Mini-problème global</a></li>
+        <li><a href="#à-retenir" id="toc-à-retenir">À retenir</a></li>
+        </ul></li>
+        </ul>
+      </nav>
+          </aside>
+
+    <main class="content" id="content">
+      <h1 class="title">Mini-JS e_Exercices</h1>
+      
+      
+      
+      <h1 id="exercices-récapitulatifs">Exercices récapitulatifs</h1>
+      <p>Ces exercices permettent de consolider les notions vues dans ce
+      chapitre : <strong>nombres en JavaScript, l’objet Math, les
+      opérateurs de base et les opérateurs avancés</strong>.<br />
+      Ils sont organisés du plus simple au plus complexe.</p>
+      <hr />
+      <h2 id="exercice-1---les-nombres">Exercice 1 - Les nombres</h2>
+      <ol type="1">
+      <li>Crée deux variables <code>a = 0.1</code> et
+      <code>b = 0.2</code>. Additionne-les et affiche le résultat.
+      Explique pourquoi ce n’est pas exactement <code>0.3</code>.<br />
+      </li>
+      <li>Déclare un nombre en binaire (<code>0b1011</code>) et affiche
+      sa valeur en décimal.<br />
+      </li>
+      <li>Affiche <code>Number.MAX_SAFE_INTEGER</code> puis ajoute
+      <code>1</code> et <code>2</code>. Observe le résultat.</li>
+      </ol>
+      <hr />
+      <h2 id="exercice-2---lobjet-math">Exercice 2 - L’objet Math</h2>
+      <ol type="1">
+      <li>Utilise <code>Math.PI</code> pour calculer la circonférence
+      d’un cercle de rayon <code>5</code>.<br />
+      Formule : <code>2 * π * r</code>.<br />
+      </li>
+      <li>Calcule la racine carrée de <code>144</code> avec
+      <code>Math.sqrt</code>.<br />
+      </li>
+      <li>Génére un nombre aléatoire compris entre 1 et 10 inclus.</li>
+      </ol>
+      <hr />
+      <h2 id="exercice-3---opérateurs-de-base">Exercice 3 - Opérateurs
+      de base</h2>
+      <ol type="1">
+      <li>Calcule et affiche le reste de la division de <code>123</code>
+      par <code>10</code>.<br />
+      </li>
+      <li>Additionne un nombre et une chaîne de caractères pour
+      constater la concaténation.<br />
+      </li>
+      <li>Divise <code>0</code> par <code>0</code> et observe le
+      résultat.<br />
+      </li>
+      <li>Convertis la chaîne <code>"256"</code> en nombre puis ajoute
+      <code>10</code>.</li>
+      </ol>
+      <hr />
+      <h2 id="exercice-4---opérateurs-avancés">Exercice 4 - Opérateurs
+      avancés</h2>
+      <ol type="1">
+      <li>Évalue <code>2 + 3 * 4 ** 2</code> puis compare avec
+      <code>(2 + 3) * 4 ** 2</code>.<br />
+      </li>
+      <li>Déclare une variable <code>n = 10</code>.
+      <ul>
+      <li>Incrémente-la deux fois.<br />
+      </li>
+      <li>Décrémente-la une fois.<br />
+      </li>
+      <li>Affiche sa valeur à chaque étape.<br />
+      </li>
+      </ul></li>
+      <li>Utilise un opérateur d’affectation combiné pour multiplier une
+      variable <code>x = 7</code> par <code>3</code>.<br />
+      </li>
+      <li>Teste l’opérateur <code>??</code> avec une variable
+      <code>let nom;</code> puis avec
+      <code>let nom = "Alice";</code>.</li>
+      </ol>
+      <hr />
+      <h2 id="exercice-5---mini-problème-global">Exercice 5 -
+      Mini-problème global</h2>
+      <p>Écris un petit programme qui :<br />
+      1. Déclare une variable <code>rayon = 10</code>.<br />
+      2. Calcule l’aire du cercle correspondant (π × r²).<br />
+      3. Si l’aire est supérieure à 200, affiche
+      <code>"Grand cercle"</code>, sinon
+      <code>"Petit cercle"</code>.<br />
+      4. Ajoute un commentaire expliquant ton raisonnement.</p>
+      <hr />
+      <h2 id="à-retenir">À retenir</h2>
+      <ul>
+      <li>Les nombres en JavaScript sont des <strong>flottants 64
+      bits</strong> avec une précision limitée.<br />
+      </li>
+      <li>L’objet <code>Math</code> propose des
+      <strong>constantes</strong> (<code>PI</code>, <code>E</code>) et
+      des <strong>méthodes</strong> (<code>sqrt</code>,
+      <code>random</code>, etc.).<br />
+      </li>
+      <li>Les opérateurs arithmétiques permettent des calculs simples,
+      mais attention à la <strong>coercition de type</strong> avec
+      <code>+</code>.<br />
+      </li>
+      <li>Les opérateurs avancés (<code>**</code>, <code>++</code>,
+      <code>+=</code>, <code>??</code>) rendent le code plus concis et
+      expressif.</li>
+      </ul>
+      <hr />
+      <p>⬅️ <a href="./d_avances.html">Chapitre précédent : Opérateurs
+      avancés</a></p>
+      <p>➡️ <a href="../04_strings/a_chaines.html">Chapitre suivant :
+      Chaînes de caractères</a></p>
+    </main>
+  </div>
+
+  <footer class="site">
+    © Manuel Regamey 2025 Mini-JS Généré avec [SluInk]
+  </footer>
+
+  </body>
+
+</html>
